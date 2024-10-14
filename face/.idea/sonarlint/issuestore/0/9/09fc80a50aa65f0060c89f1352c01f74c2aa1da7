@@ -1,0 +1,33 @@
+
+ckotlin:S6619î">Remove this useless non-null assertion !!, it always succeeds.(ÿ Šùÿÿÿÿ8ôöşèÛ1
+^kotlin:S6619ò">Remove this useless non-null assertion !!, it always succeeds.(Ö¥½›8ôöşèÛ1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ŸÀñ¡øÿÿÿÿ8ûöşèÛ1
+mkotlin:S117‘"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(üû×¶8ûöşèÛ1
+rkotlin:S117’"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Óßş½ûÿÿÿÿ8ûöşèÛ1
+mkotlin:S117“"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(®Ï¾š8ûöşèÛ1
+mkotlin:S117–"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ĞÇßª8ûöşèÛ1
+rkotlin:S117—"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(´Çöùÿÿÿÿ8ûöşèÛ1
+rkotlin:S117›"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Œöå‹şÿÿÿÿ8ûöşèÛ1
+mkotlin:S117œ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(÷ôÓ¾8üöşèÛ1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(¦è‰™ùÿÿÿÿ8üöşèÛ1
+mkotlin:S117Ÿ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(·”ç»8üöşèÛ1
+rkotlin:S117·"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ŸÀñ¡øÿÿÿÿ8üöşèÛ1
+mkotlin:S117¸"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(üû×¶8üöşèÛ1
+rkotlin:S117¹"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Óßş½ûÿÿÿÿ8üöşèÛ1
+mkotlin:S117º"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(®Ï¾š8ıöşèÛ1
+mkotlin:S117½"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ĞÇßª8ıöşèÛ1
+rkotlin:S117¾"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(´Çöùÿÿÿÿ8ıöşèÛ1
+rkotlin:S117Â"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Œöå‹şÿÿÿÿ8ıöşèÛ1
+mkotlin:S117Ã"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(÷ôÓ¾8ıöşèÛ1
+rkotlin:S117Å"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(¦è‰™ùÿÿÿÿ8ıöşèÛ1
+rkotlin:S117Æ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ÕÛÏØıÿÿÿÿ8ıöşèÛ1
+mkotlin:S117Ç"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(·”ç»8şöşèÛ1
+mkotlin:S117á"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(·”ç»8şöşèÛ1
+rkotlin:S117â"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(›ÅØÓÿÿÿÿÿ8şöşèÛ1
+rkotlin:S117ã"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Ëùªûÿÿÿÿ8şöşèÛ1
+rkotlin:S117ä"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Ê†ÉÕûÿÿÿÿ8şöşèÛ1
+gkotlin:S107"HThis function has 17 parameters, which is greater than the 7 authorized.(–ïÕÄ8‰÷şèÛ1
+lkotlin:S107¶"HThis function has 17 parameters, which is greater than the 7 authorized.(§’òÿÿÿÿÿ8Š÷şèÛ1
+Hkotlin:S1874î"#Deprecated code should not be used.(ÿ Šùÿÿÿÿ8 ÷şèÛ1
+Ckotlin:S1874€"#Deprecated code should not be used.(º¨×Œ8 ÷şèÛ1
+Hkotlin:S1874‹"#Deprecated code should not be used.(Ô÷ıÿÿÿÿ8 ÷şèÛ1

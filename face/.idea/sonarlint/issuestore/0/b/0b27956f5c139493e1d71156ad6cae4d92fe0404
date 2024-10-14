@@ -1,0 +1,30 @@
+
+Pkotlin:S1172ü"7Use "_" instead of this unused lambda parameter "view".(¶ğåó
+Vkotlin:S1172"=Use "_" instead of this unused lambda parameter "timePicker".(œÛ…ˆ
+Skotlin:S6619o";Remove this useless elvis operation ?:, it always succeeds.(©€¹Ğ
+Ukotlin:S6619à"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+Ukotlin:S6619à"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+Ukotlin:S6619ş"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+Ukotlin:S6619ş"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+Ukotlin:S6619˜"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+Ukotlin:S6619˜"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï
+7kotlin:S125„"Remove this commented out code.(©ÕÔş
+<kotlin:S125™"Remove this commented out code.(“àÈêıÿÿÿÿ
+<kotlin:S125¬"Remove this commented out code.(šğîúûÿÿÿÿ
+Pkotlin:S1144ú"2Remove this unused private "setDatePicker" method.(ÔÄ†Øıÿÿÿÿ
+Kkotlin:S1144"2Remove this unused private "setTimePicker" method.(ãã€è
+Fkotlin:S108·")Either remove or fill this block of code.(ÍÖ¥ºÿÿÿÿÿ
+Fkotlin:S108¢")Either remove or fill this block of code.(€¸¦’üÿÿÿÿ
+Akotlin:S108Ò")Either remove or fill this block of code.(Ä¶ã¦
+Akotlin:S108Ú")Either remove or fill this block of code.(ÿ—ÖÂ
+7kotlin:S6531"Remove this useless cast.(«äŠğÿÿÿÿÿ
+Ekotlin:S1481²",Remove this unused "success" local variable.(ñİ©
+@kotlin:S1874]"#Deprecated code should not be used.(ø½ò‘ùÿÿÿÿ
+@kotlin:S1874i"#Deprecated code should not be used.(š¹¬Ôıÿÿÿÿ
+;kotlin:S1874j"#Deprecated code should not be used.(Í…ßù
+;kotlin:S1874j"#Deprecated code should not be used.(Í…ßù
+;kotlin:S1874k"#Deprecated code should not be used.(Íœ§š
+<kotlin:S1874¶"#Deprecated code should not be used.(‡Ô¹À
+okotlin:S3776g"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(ì¤şÿÿÿÿ
+Jkotlin:S6518‘",Replace function call with indexed accessor.( ãÏËùÿÿÿÿ
+Jkotlin:S6518’",Replace function call with indexed accessor.(Ö¯Îòşÿÿÿÿ

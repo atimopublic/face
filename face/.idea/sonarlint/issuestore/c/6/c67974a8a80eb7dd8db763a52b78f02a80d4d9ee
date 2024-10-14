@@ -1,0 +1,25 @@
+
+\kotlin:S1172’"7Use "_" instead of this unused lambda parameter "view".(¼ÙÁ üÿÿÿÿ8ÿÑéçÛ1
+\kotlin:S1172•"7Use "_" instead of this unused lambda parameter "view".(ã´ñùÿÿÿÿ8€ÒéçÛ1
+Zkotlin:S6619f";Remove this useless elvis operation ?:, it always succeeds.(©€¹Ğ8‡ÒéçÛ1
+Ckotlin:S125š"Remove this commented out code.(¨Ì åşÿÿÿÿ8ŠÒéçÛ1
+>kotlin:S125Ê"Remove this commented out code.(°«×Ú8ŠÒéçÛ1
+Ckotlin:S125å"Remove this commented out code.(šıŸøşÿÿÿÿ8‹ÒéçÛ1
+Ckotlin:S125 "Remove this commented out code.(ÜËËÅüÿÿÿÿ8‹ÒéçÛ1
+>kotlin:S125¹"Remove this commented out code.(ÌùÜï8ŒÒéçÛ1
+wkotlin:S117Ñ"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(¿Ù§œıÿÿÿÿ8»±ëçÛ1
+Hkotlin:S1874Á"#Deprecated code should not be used.(ûÈæ–ûÿÿÿÿ8ÀÒéçÛ1
+Ckotlin:S1874Æ"#Deprecated code should not be used.( ¤Óı8ÀÒéçÛ1
+Gkotlin:S1874`"#Deprecated code should not be used.(š¹¬Ôıÿÿÿÿ8ÀÒéçÛ1
+Bkotlin:S1874a"#Deprecated code should not be used.(Í…ßù8ÁÒéçÛ1
+Bkotlin:S1874a"#Deprecated code should not be used.(Í…ßù8ÁÒéçÛ1
+Bkotlin:S1874b"#Deprecated code should not be used.(Íœ§š8ÁÒéçÛ1
+Hkotlin:S1874›"#Deprecated code should not be used.(­™ı†ÿÿÿÿÿ8ÁÒéçÛ1
+zkotlin:S1186·"ZAdd a nested comment explaining why this function is empty or complete the implementation.(¤÷‡±8ÍÒéçÛ1
+kotlin:S1186¹"ZAdd a nested comment explaining why this function is empty or complete the implementation.(ï½ŒŒûÿÿÿÿ8ÍÒéçÛ1
+kotlin:S1186¼"ZAdd a nested comment explaining why this function is empty or complete the implementation.(…Ğ¶ôÿÿÿÿÿ8–»ÑºÜ1
+Skotlin:S1066¼".Merge this "if" statement with the nested one.(ğµ¹øıÿÿÿÿ8ÎÒéçÛ1
+Skotlin:S1066Ì".Merge this "if" statement with the nested one.(Ëìš‘ÿÿÿÿÿ8ÎÒéçÛ1
+Qkotlin:S6518“",Replace function call with indexed accessor.(ÖÖ÷®üÿÿÿÿ8ÒÒéçÛ1
+Lkotlin:S6518–",Replace function call with indexed accessor.(ÅÎß¡8ÒÒéçÛ1
+Qkotlin:S6518—",Replace function call with indexed accessor.(¼ˆâùÿÿÿÿ8ÒÒéçÛ1

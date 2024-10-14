@@ -1,0 +1,36 @@
+
+Wkotlin:S1172Ş"7Use "_" instead of this unused lambda parameter "view".(¶ğåó8¢ÿ¡¦á1
+]kotlin:S1172ò"=Use "_" instead of this unused lambda parameter "timePicker".(œÛ…ˆ8£ÿ¡¦á1
+Zkotlin:S6619v";Remove this useless elvis operation ?:, it always succeeds.(©€¹Ğ8üïé¦á1
+\kotlin:S6619ä"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619ä"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619¦"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619¦"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619÷"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619÷"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619¹"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8şïé¦á1
+\kotlin:S6619¹"<Remove this useless null-safe access ?., it always succeeds.(µß«Ï8ÿïé¦á1
+Ckotlin:S125±"Remove this commented out code.(½Ç„Ëøÿÿÿÿ8€ğé¦á1
+Ckotlin:S125"Remove this commented out code.(“àÈêıÿÿÿÿ8‚ğé¦á1
+Ckotlin:S125 "Remove this commented out code.(šğîúûÿÿÿÿ8ƒğé¦á1
+Ykotlin:S1144¦"4Remove this unused private "getuserLocation" method.(»¾Ûşÿÿÿÿ8—ğé¦á1
+Wkotlin:S1144Ü"2Remove this unused private "setDatePicker" method.(ÔÄ†Øıÿÿÿÿ8šğé¦á1
+Rkotlin:S1144ï"2Remove this unused private "setTimePicker" method.(ãã€è8œğé¦á1
+Mkotlin:S108«")Either remove or fill this block of code.(ÍÖ¥ºÿÿÿÿÿ8Üÿ¡¦á1
+Mkotlin:S108§")Either remove or fill this block of code.(€¸¦’üÿÿÿÿ8©ğé¦á1
+Hkotlin:S108Ñ")Either remove or fill this block of code.(Ä¶ã¦8©ğé¦á1
+Hkotlin:S108Ù")Either remove or fill this block of code.(ÿ—ÖÂ8©ğé¦á1
+Lkotlin:S1481¦",Remove this unused "success" local variable.(ñİ©8¾ğé¦á1
+Gkotlin:S1874c"#Deprecated code should not be used.(ø½ò‘ùÿÿÿÿ8©ë¥á1
+Gkotlin:S1874p"#Deprecated code should not be used.(š¹¬Ôıÿÿÿÿ8üÿ¡¦á1
+Bkotlin:S1874q"#Deprecated code should not be used.(Í…ßù8ıÿ¡¦á1
+Bkotlin:S1874q"#Deprecated code should not be used.(Í…ßù8Şğé¦á1
+Bkotlin:S1874r"#Deprecated code should not be used.(Íœ§š8Şğé¦á1
+Ckotlin:S1874Ğ"#Deprecated code should not be used.(‡Ô¹À8Şğé¦á1
+Hkotlin:S1874í"#Deprecated code should not be used.(Æü×Áÿÿÿÿÿ8º›ÄÃá1
+Ckotlin:S1874”"#Deprecated code should not be used.(Ì±Ø8º›ÄÃá1
+Hkotlin:S1874š"#Deprecated code should not be used.(ÿ‰÷ÿÿÿÿÿ8º›ÄÃá1
+Hkotlin:S1874³"#Deprecated code should not be used.(ßß”ıüÿÿÿÿ8Şğé¦á1
+vkotlin:S3776m"RRefactor this method to reduce its Cognitive Complexity from 52 to the 15 allowed.(ì¤şÿÿÿÿ8áğé¦á1
+Qkotlin:S6518ó",Replace function call with indexed accessor.( ãÏËùÿÿÿÿ8’€¢¦á1
+Qkotlin:S6518ô",Replace function call with indexed accessor.(Ö¯Îòşÿÿÿÿ8óğé¦á1

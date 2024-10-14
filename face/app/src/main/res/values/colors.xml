@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryLight">#ecf2fa</color>
+    <color name="primary">#0E60FF</color>
+    <color name="primaryDark">#1F59B6</color>
+    <color name="primaryLight60">#991F59B6</color>
+    <color name="light_primary">#e4eeff</color>
+    <color name="details_bg">#F6F7FB</color>
+    <color name="secondary">#4E4E62</color>
+    <color name="off_white">#FFF5E0</color>
+    <color name="grey">#96A19A</color>
+    <color name="orange">#FD7900</color>
+    <color name="orange_40">#66FFA509</color>
+    <color name="light_green">#dcf7de</color>
+    <color name="green">#33C43D</color>
+    <color name="green_40">#94EC99</color>
+    <color name="green_20">#2EA024</color>
+    <color name="text_color_Dark">#313131</color>
+    <color name="text_color_light">#B6B7B7</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="SpinKit_Color">#1F59B6</color>
+    <color name="light_grey">#F0F0F0</color>
+    <color name="red">#F44336</color>
+    <color name="baby_blue">#63B0DA</color>
+    <color name="a_black">#111110</color>
+    <color name="pin_color">#96A19A</color>
+    <color name="off_white_color">#F2EBDC</color>
+    <color name="pink_color">#EDF3FF</color>
+    <color name="light_sep">#EAEAEA</color>
+    <color name="code_color">#46D1D1</color>
+    <color name="milky">#16AFD3</color>
+    <color name="transparent">#00000000</color>
+    <color name="fill_background">#F9F9F9</color>
+    <color name="gray">#4E4E62</color>
+    <color name="baby_blue1">#EBF8FF</color>
+    <color name="purple">#19114A</color>
+    <color name="gray_bg">#DBDBDB</color>
+    <color name="test">#EFF4FE</color>
+    <color name="voice_bk">#EFF4FE</color>
+    <color name="package_bg">#EFF4FE</color>
+    <color name="dark_red">#CB0706</color>
+
+
+    <color name="indicator">#1A3C6F</color>
+
+
+    <color name="positiveButtonTextColor">@color/primary</color>
+    <color name="negativeButtonTextColor">@color/primary</color>
+    <color name="bottomSheetDividerColor">#673AB7</color>
+
+</resources>

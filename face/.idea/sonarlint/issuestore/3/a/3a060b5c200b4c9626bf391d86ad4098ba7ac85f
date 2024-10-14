@@ -1,0 +1,173 @@
+
+lkotlin:S117X"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(‡¨χ8τΊφυή1
+qkotlin:S117w"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(‹©Ζ™ϋÿÿÿÿ8υΊφυή1
+qkotlin:S117y"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(«κÿψϊÿÿÿÿ8υΊφυή1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Οα‡ςύÿÿÿÿ8υΊφυή1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Οα‡ςύÿÿÿÿ8υΊφυή1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(βήΕ”όÿÿÿÿ8υΊφυή1
+rkotlin:S117"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(€»™®ωÿÿÿÿ8υΊφυή1
+mkotlin:S117°"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(―†Χÿ8φΊφυή1
+mkotlin:S117±"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ιΓ‡ϋ8φΊφυή1
+mkotlin:S117¶"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(εδ8φΊφυή1
+mkotlin:S117Έ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ιΓ‡ϋ8φΊφυή1
+rkotlin:S117Ψ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ªΎζ®όÿÿÿÿ8φΊφυή1
+rkotlin:S117δ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(΅ζσύÿÿÿÿ8φΊφυή1
+mkotlin:S117ε"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Αψ—8φΊφυή1
+rkotlin:S117ι"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(΅ζσύÿÿÿÿ8φΊφυή1
+mkotlin:S117κ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ϋΏ±›8φΊφυή1
+rkotlin:S117³"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ιβÿÿÿÿÿ8φΊφυή1
+lkotlin:S117Ρ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(τΉαS8φΊφυή1
+lkotlin:S117Ρ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(τΉαS8φΊφυή1
+lkotlin:S117Ρ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(τΉαS8φΊφυή1
+lkotlin:S117Ρ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(τΉαS8φΊφυή1
+mkotlin:S117Ò"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(„ÒΑΐ8χΊφυή1
+mkotlin:S117Ò"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(„ÒΑΐ8χΊφυή1
+rkotlin:S117Χ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ΞΠχζύÿÿÿÿ8χΊφυή1
+mkotlin:S117Ϊ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Ψΐ ΰ8χΊφυή1
+rkotlin:S117Ϋ"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Β²—οωÿÿÿÿ8χΊφυή1
+rkotlin:S117ή"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(Μ®ΈΠÿÿÿÿÿ8χΊφυή1
+fkotlin:S107‹"GThis function has 9 parameters, which is greater than the 7 authorized.(·Δ–8‡»φυή1
+lkotlin:S107Ο"HThis function has 11 parameters, which is greater than the 7 authorized.(ΘΟΤƒÿÿÿÿÿ8‡»φυή1
+dkotlin:S6309C"@Functions returning "Flow" or "Channel" should not be suspending(ΡΰΙΊωÿÿÿÿ8•»φυή1
+_kotlin:S6309D"@Functions returning "Flow" or "Channel" should not be suspending(ΘΊΣ8•»φυή1
+_kotlin:S6309E"@Functions returning "Flow" or "Channel" should not be suspending(αΪα8•»φυή1
+dkotlin:S6309F"@Functions returning "Flow" or "Channel" should not be suspending(ώ½Νÿόÿÿÿÿ8•»φυή1
+dkotlin:S6309G"@Functions returning "Flow" or "Channel" should not be suspending(θΑόÿÿÿÿ8•»φυή1
+^kotlin:S6309K"@Functions returning "Flow" or "Channel" should not be suspending(ν“Η)8•»φυή1
+_kotlin:S6309N"@Functions returning "Flow" or "Channel" should not be suspending(φΜ³α8•»φυή1
+dkotlin:S6309R"@Functions returning "Flow" or "Channel" should not be suspending(ΜτΓόÿÿÿÿ8–»φυή1
+dkotlin:S6309S"@Functions returning "Flow" or "Channel" should not be suspending(πνΪύÿÿÿÿÿ8–»φυή1
+_kotlin:S6309W"@Functions returning "Flow" or "Channel" should not be suspending(¬ν«8–»φυή1
+dkotlin:S6309\"@Functions returning "Flow" or "Channel" should not be suspending(“ΨρΖωÿÿÿÿ8–»φυή1
+dkotlin:S6309^"@Functions returning "Flow" or "Channel" should not be suspending(ίε®ύÿÿÿÿ8–»φυή1
+dkotlin:S6309_"@Functions returning "Flow" or "Channel" should not be suspending(λχ³ÿÿÿÿÿ8–»φυή1
+_kotlin:S6309`"@Functions returning "Flow" or "Channel" should not be suspending(ΦθΜ–8–»φυή1
+dkotlin:S6309a"@Functions returning "Flow" or "Channel" should not be suspending(ΟΪ¶Υόÿÿÿÿ8–»φυή1
+_kotlin:S6309b"@Functions returning "Flow" or "Channel" should not be suspending(²εό’8–»φυή1
+^kotlin:S6309c"@Functions returning "Flow" or "Channel" should not be suspending(ΖΫψ8–»φυή1
+_kotlin:S6309d"@Functions returning "Flow" or "Channel" should not be suspending(Ώσ£8–»φυή1
+_kotlin:S6309e"@Functions returning "Flow" or "Channel" should not be suspending(—Ξ8—»φυή1
+_kotlin:S6309f"@Functions returning "Flow" or "Channel" should not be suspending(ª¨ª 8—»φυή1
+dkotlin:S6309g"@Functions returning "Flow" or "Channel" should not be suspending(σϊ³Òϊÿÿÿÿ8—»φυή1
+dkotlin:S6309h"@Functions returning "Flow" or "Channel" should not be suspending(©ΨκΜώÿÿÿÿ8—»φυή1
+_kotlin:S6309i"@Functions returning "Flow" or "Channel" should not be suspending(ώΑ¦γ8—»φυή1
+dkotlin:S6309k"@Functions returning "Flow" or "Channel" should not be suspending(δΆχ±ÿÿÿÿÿ8—»φυή1
+^kotlin:S6309l"@Functions returning "Flow" or "Channel" should not be suspending(“°δ8—»φυή1
+^kotlin:S6309m"@Functions returning "Flow" or "Channel" should not be suspending(μο8—»φυή1
+^kotlin:S6309n"@Functions returning "Flow" or "Channel" should not be suspending(£α°8—»φυή1
+_kotlin:S6309o"@Functions returning "Flow" or "Channel" should not be suspending(ϋϋ™8—»φυή1
+dkotlin:S6309s"@Functions returning "Flow" or "Channel" should not be suspending(³­·ÿÿÿÿÿ8—»φυή1
+dkotlin:S6309u"@Functions returning "Flow" or "Channel" should not be suspending(ΤΆϋÿÿÿÿ8»φυή1
+dkotlin:S6309w"@Functions returning "Flow" or "Channel" should not be suspending(‹©Ζ™ϋÿÿÿÿ8»φυή1
+dkotlin:S6309y"@Functions returning "Flow" or "Channel" should not be suspending(«κÿψϊÿÿÿÿ8»φυή1
+_kotlin:S6309{"@Functions returning "Flow" or "Channel" should not be suspending(ψ …8»φυή1
+dkotlin:S6309}"@Functions returning "Flow" or "Channel" should not be suspending(»¦ÿÿÿÿÿ8»φυή1
+dkotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ΡΎªψÿÿÿÿ8»φυή1
+ekotlin:S6309„"@Functions returning "Flow" or "Channel" should not be suspending(Ό‚„¨ωÿÿÿÿ8»φυή1
+`kotlin:S6309†"@Functions returning "Flow" or "Channel" should not be suspending(δΜΉµ8»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ΙΑήÒϊÿÿÿÿ8»φυή1
+`kotlin:S6309‰"@Functions returning "Flow" or "Channel" should not be suspending(€…ΘΖ8»φυή1
+`kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ιεω‹8»φυή1
+`kotlin:S6309‹"@Functions returning "Flow" or "Channel" should not be suspending(·Δ–8™»φυή1
+ekotlin:S6309‘"@Functions returning "Flow" or "Channel" should not be suspending(ά¦ίώÿÿÿÿÿ8™»φυή1
+`kotlin:S6309“"@Functions returning "Flow" or "Channel" should not be suspending(αΩ©¥8™»φυή1
+ekotlin:S6309”"@Functions returning "Flow" or "Channel" should not be suspending(¶¶‰†ϋÿÿÿÿ8™»φυή1
+ekotlin:S6309–"@Functions returning "Flow" or "Channel" should not be suspending(‚νάώÿÿÿÿ8™»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(Ζεϊϊÿÿÿÿ8™»φυή1
+`kotlin:S6309™"@Functions returning "Flow" or "Channel" should not be suspending(ΠΟΞχ8™»φυή1
+`kotlin:S6309›"@Functions returning "Flow" or "Channel" should not be suspending(ΦΚϊ8™»φυή1
+`kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ύό€­8™»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(®ΏυΠύÿÿÿÿ8™»φυή1
+`kotlin:S6309 "@Functions returning "Flow" or "Channel" should not be suspending(πΙ¤ο8™»φυή1
+ekotlin:S6309Ά"@Functions returning "Flow" or "Channel" should not be suspending(±Òγόÿÿÿÿ8™»φυή1
+_kotlin:S6309£"@Functions returning "Flow" or "Channel" should not be suspending(Τσ,8»φυή1
+`kotlin:S6309¤"@Functions returning "Flow" or "Channel" should not be suspending(¤£¤8»φυή1
+ekotlin:S6309¥"@Functions returning "Flow" or "Channel" should not be suspending(Ψ‘ώÿÿÿÿ8»φυή1
+ekotlin:S6309ª"@Functions returning "Flow" or "Channel" should not be suspending(† ™Ύϊÿÿÿÿ8»φυή1
+_kotlin:S6309¬"@Functions returning "Flow" or "Channel" should not be suspending(‚δ8»φυή1
+ekotlin:S6309­"@Functions returning "Flow" or "Channel" should not be suspending(Ζπςόψÿÿÿÿ8»φυή1
+`kotlin:S6309®"@Functions returning "Flow" or "Channel" should not be suspending(Ν§ύ½8»φυή1
+ekotlin:S6309―"@Functions returning "Flow" or "Channel" should not be suspending(‰Ά–ψÿÿÿÿ8»φυή1
+`kotlin:S6309¶"@Functions returning "Flow" or "Channel" should not be suspending(εδ8›»φυή1
+`kotlin:S6309Ί"@Functions returning "Flow" or "Channel" should not be suspending(ν±‹φ8›»φυή1
+`kotlin:S6309»"@Functions returning "Flow" or "Channel" should not be suspending(¤ωΗ8›»φυή1
+ekotlin:S6309ΐ"@Functions returning "Flow" or "Channel" should not be suspending(“Έδψÿÿÿÿ8›»φυή1
+ekotlin:S6309Β"@Functions returning "Flow" or "Channel" should not be suspending(νήΔύÿÿÿÿ8›»φυή1
+`kotlin:S6309Δ"@Functions returning "Flow" or "Channel" should not be suspending(Ί€Ό―8›»φυή1
+ekotlin:S6309Ζ"@Functions returning "Flow" or "Channel" should not be suspending(Ο―ϊΒόÿÿÿÿ8›»φυή1
+ekotlin:S6309Θ"@Functions returning "Flow" or "Channel" should not be suspending(ΗΚƒΗϋÿÿÿÿ8›»φυή1
+ekotlin:S6309Κ"@Functions returning "Flow" or "Channel" should not be suspending(«Λϊÿÿÿÿ8›»φυή1
+ekotlin:S6309Π"@Functions returning "Flow" or "Channel" should not be suspending(«α¦¨ώÿÿÿÿ8›»φυή1
+ekotlin:S6309Ò"@Functions returning "Flow" or "Channel" should not be suspending(•Ώβ‹ωÿÿÿÿ8›»φυή1
+ekotlin:S6309Ψ"@Functions returning "Flow" or "Channel" should not be suspending(ªΎζ®όÿÿÿÿ8›»φυή1
+`kotlin:S6309Ϋ"@Functions returning "Flow" or "Channel" should not be suspending(ώ°ω8»φυή1
+`kotlin:S6309γ"@Functions returning "Flow" or "Channel" should not be suspending(ήίΕÿ8»φυή1
+ekotlin:S6309θ"@Functions returning "Flow" or "Channel" should not be suspending(©½¶Νψÿÿÿÿ8»φυή1
+ekotlin:S6309ο"@Functions returning "Flow" or "Channel" should not be suspending(¤€Υ—ϋÿÿÿÿ8»φυή1
+`kotlin:S6309τ"@Functions returning "Flow" or "Channel" should not be suspending(ύ‡8»φυή1
+ekotlin:S6309ϊ"@Functions returning "Flow" or "Channel" should not be suspending(Ηδ³ ψÿÿÿÿ8»φυή1
+`kotlin:S6309€"@Functions returning "Flow" or "Channel" should not be suspending(¬‹Ϊ8»φυή1
+ekotlin:S6309ƒ"@Functions returning "Flow" or "Channel" should not be suspending(χθχ–ώÿÿÿÿ8»φυή1
+_kotlin:S6309†"@Functions returning "Flow" or "Channel" should not be suspending(ΣΛ98»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(φΗ™Έψÿÿÿÿ8»φυή1
+`kotlin:S6309‘"@Functions returning "Flow" or "Channel" should not be suspending(σξΏΖ8»φυή1
+`kotlin:S6309”"@Functions returning "Flow" or "Channel" should not be suspending(΅Β΄σ8»φυή1
+`kotlin:S6309•"@Functions returning "Flow" or "Channel" should not be suspending(ƒΑΔ8»φυή1
+ekotlin:S6309–"@Functions returning "Flow" or "Channel" should not be suspending(α…Ύλύÿÿÿÿ8»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ρΪΜ®ÿÿÿÿÿ8»φυή1
+ekotlin:S6309›"@Functions returning "Flow" or "Channel" should not be suspending(±ήΌϊϋÿÿÿÿ8»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(έ¦΄®ϊÿÿÿÿ8»φυή1
+`kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ΘΤΔΑ8»φυή1
+`kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(α‹ΣΊ8»φυή1
+ekotlin:S6309¥"@Functions returning "Flow" or "Channel" should not be suspending(©έ™€όÿÿÿÿ8»φυή1
+ekotlin:S6309¦"@Functions returning "Flow" or "Channel" should not be suspending(»ªΗάωÿÿÿÿ8»φυή1
+`kotlin:S6309¨"@Functions returning "Flow" or "Channel" should not be suspending(θ½…8»φυή1
+`kotlin:S6309ª"@Functions returning "Flow" or "Channel" should not be suspending(„ÿ»έ8»φυή1
+`kotlin:S6309«"@Functions returning "Flow" or "Channel" should not be suspending(·ƒ±ÿ8»φυή1
+ekotlin:S6309­"@Functions returning "Flow" or "Channel" should not be suspending(υΊκόÿÿÿÿ8»φυή1
+`kotlin:S6309―"@Functions returning "Flow" or "Channel" should not be suspending(ΝΔΧΘ8»φυή1
+ekotlin:S6309±"@Functions returning "Flow" or "Channel" should not be suspending(‰ϊωÿÿÿÿÿ8»φυή1
+ekotlin:S6309¶"@Functions returning "Flow" or "Channel" should not be suspending(Γ―αΡÿÿÿÿÿ8»φυή1
+ekotlin:S6309Έ"@Functions returning "Flow" or "Channel" should not be suspending(κΏ¨ύÿÿÿÿ8»φυή1
+`kotlin:S6309Ί"@Functions returning "Flow" or "Channel" should not be suspending(•δξ8»φυή1
+ekotlin:S6309Ό"@Functions returning "Flow" or "Channel" should not be suspending(ϋΉξ€ϊÿÿÿÿ8»φυή1
+ekotlin:S6309Ύ"@Functions returning "Flow" or "Channel" should not be suspending(Π½…Πψÿÿÿÿ8»φυή1
+`kotlin:S6309ΐ"@Functions returning "Flow" or "Channel" should not be suspending(ΤΡΨ8»φυή1
+`kotlin:S6309Β"@Functions returning "Flow" or "Channel" should not be suspending(ΞλΣ8»φυή1
+ekotlin:S6309Δ"@Functions returning "Flow" or "Channel" should not be suspending(Κζ±ύÿÿÿÿ8»φυή1
+ekotlin:S6309Η"@Functions returning "Flow" or "Channel" should not be suspending(΅Α”Ώψÿÿÿÿ8»φυή1
+`kotlin:S6309Κ"@Functions returning "Flow" or "Channel" should not be suspending(ΩΘ“8»φυή1
+ekotlin:S6309Ο"@Functions returning "Flow" or "Channel" should not be suspending(ΘΟΤƒÿÿÿÿÿ8»φυή1
+ekotlin:S6309Υ"@Functions returning "Flow" or "Channel" should not be suspending(–Ο½θϊÿÿÿÿ8»φυή1
+ekotlin:S6309Χ"@Functions returning "Flow" or "Channel" should not be suspending(ΞΠχζύÿÿÿÿ8»φυή1
+`kotlin:S6309Ω"@Functions returning "Flow" or "Channel" should not be suspending(ΥώΏ™8»φυή1
+ekotlin:S6309ή"@Functions returning "Flow" or "Channel" should not be suspending(Μ®ΈΠÿÿÿÿÿ8»φυή1
+ekotlin:S6309ΰ"@Functions returning "Flow" or "Channel" should not be suspending(³•έΨωÿÿÿÿ8»φυή1
+`kotlin:S6309β"@Functions returning "Flow" or "Channel" should not be suspending(½οστ8»φυή1
+`kotlin:S6309δ"@Functions returning "Flow" or "Channel" should not be suspending(—ψβ§8»φυή1
+`kotlin:S6309ζ"@Functions returning "Flow" or "Channel" should not be suspending(ΊΎέ8»φυή1
+ekotlin:S6309λ"@Functions returning "Flow" or "Channel" should not be suspending(‹†Ψύÿÿÿÿÿ8 »φυή1
+`kotlin:S6309ν"@Functions returning "Flow" or "Channel" should not be suspending(μ«Ϊ8 »φυή1
+`kotlin:S6309ο"@Functions returning "Flow" or "Channel" should not be suspending(Ί ζ8 »φυή1
+ekotlin:S6309σ"@Functions returning "Flow" or "Channel" should not be suspending(΄…ΉΒύÿÿÿÿ8 »φυή1
+ekotlin:S6309τ"@Functions returning "Flow" or "Channel" should not be suspending(Υπξύÿÿÿÿ8 »φυή1
+ekotlin:S6309φ"@Functions returning "Flow" or "Channel" should not be suspending(ωδΛΥώÿÿÿÿ8 »φυή1
+ekotlin:S6309ψ"@Functions returning "Flow" or "Channel" should not be suspending(¥ρΝΛύÿÿÿÿ8 »φυή1
+`kotlin:S6309ϊ"@Functions returning "Flow" or "Channel" should not be suspending(µ±8 »φυή1
+`kotlin:S6309ό"@Functions returning "Flow" or "Channel" should not be suspending(η―Ξξ8 »φυή1
+`kotlin:S6309ώ"@Functions returning "Flow" or "Channel" should not be suspending(δΕμ±8 »φυή1
+`kotlin:S6309€"@Functions returning "Flow" or "Channel" should not be suspending(ΎΣΚΧ8 »φυή1
+ekotlin:S6309‚"@Functions returning "Flow" or "Channel" should not be suspending(»΅ηωÿÿÿÿ8 »φυή1
+`kotlin:S6309„"@Functions returning "Flow" or "Channel" should not be suspending(Ο¨Υ€8΅»φυή1
+`kotlin:S6309†"@Functions returning "Flow" or "Channel" should not be suspending(ΚΔΉχ8΅»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(εΒ°όÿÿÿÿ8΅»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(αΞΕΦωÿÿÿÿ8΅»φυή1
+`kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(π΄Λ©8΅»φυή1
+_kotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(ψΙΔ98΅»φυή1
+ekotlin:S6309"@Functions returning "Flow" or "Channel" should not be suspending(»ωψΈόÿÿÿÿ8΅»φυή1
+`kotlin:S6309‘"@Functions returning "Flow" or "Channel" should not be suspending(¦ 8΅»φυή1
+>kotlin:S11286"Remove this unused import.(Ξ°·Χÿÿÿÿÿ8²»φυή1
+>kotlin:S11287"Remove this unused import.(ΞΫ°Òϊÿÿÿÿ8²»φυή1
+>kotlin:S11288"Remove this unused import.(”ά°”ψÿÿÿÿ8²»φυή1
+8kotlin:S1128:"Remove this unused import.(²Ϊy8²»φυή1
+>kotlin:S1128;"Remove this unused import.(ΦΊΒώÿÿÿÿ8²»φυή1

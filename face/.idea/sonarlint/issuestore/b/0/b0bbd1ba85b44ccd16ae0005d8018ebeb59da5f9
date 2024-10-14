@@ -1,0 +1,14 @@
+
+Vkotlin:S1172x"2Use "_" instead of these unused lambda parameters.(ÖÒæÿùÿÿÿÿ8ÖóòÛ1
+Wkotlin:S1172²"2Use "_" instead of these unused lambda parameters.(åñÑòıÿÿÿÿ8ÖóòÛ1
+Vkotlin:S1172P"7Use "_" instead of this unused lambda parameter "view".(¶ğåó8×óòÛ1
+lkotlin:S117&"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(¼±è—8àûõóÛ1
+Hkotlin:S108”")Either remove or fill this block of code.(Ä¶ã¦8áóòÛ1
+Hkotlin:S108")Either remove or fill this block of code.(ÿ—ÖÂ8âóòÛ1
+9kotlin:S1128"Remove this unused import.(ñúû‡8èóòÛ1
+9kotlin:S1128"Remove this unused import.(ç„×Ş8Æ‚¥ôÛ1
+>kotlin:S1128"Remove this unused import.(Ş•èÊıÿÿÿÿ8èóòÛ1
+ykotlin:S100l"VRename function "setMain_Types" to match the regular expression ^[a-zA-Z][a-zA-Z0-9]*$(Ó³åçúÿÿÿÿ8ôŸÓóÛ1
+Jkotlin:S6518S",Replace function call with indexed accessor.(àõ§l8ğóòÛ1
+Pkotlin:S6518T",Replace function call with indexed accessor.(¹Ì¸¦ÿÿÿÿÿ8ğóòÛ1
+Pkotlin:S6518U",Replace function call with indexed accessor.(¸µÏüÿÿÿÿ8ğóòÛ1

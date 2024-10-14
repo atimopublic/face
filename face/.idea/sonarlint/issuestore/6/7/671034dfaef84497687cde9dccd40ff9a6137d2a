@@ -1,0 +1,16 @@
+
+=kotlin:S125C"Remove this commented out code.(ü²ëì8ú¼«óÛ1
+Hkotlin:S108³")Either remove or fill this block of code.(Ä¶ã¦8Ë³íôÛ1
+Hkotlin:S108½")Either remove or fill this block of code.(ÿ—ÖÂ8Ì³íôÛ1
+>kotlin:S1128"Remove this unused import.(³†ûÿÿÿÿ8†½«óÛ1
+9kotlin:S1128"Remove this unused import.(Ó ˆæ8†½«óÛ1
+9kotlin:S1128"Remove this unused import.(ÁÈÚø8†½«óÛ1
+>kotlin:S1128	"Remove this unused import.(ÊÒÅ­ùÿÿÿÿ8‡½«óÛ1
+>kotlin:S1128"Remove this unused import.(á»¸•úÿÿÿÿ8‡½«óÛ1
+9kotlin:S1128"Remove this unused import.(´Ùí8‡½«óÛ1
+8kotlin:S1128"Remove this unused import.(±ÿu8‡½«óÛ1
+9kotlin:S1128"Remove this unused import.(äÿßÕ8‡½«óÛ1
+9kotlin:S1128!"Remove this unused import.(Ë—¯Ç8‡½«óÛ1
+rkotlin:S3776“"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ˆàå»8Ö³íôÛ1
+ykotlin:S1186v"ZAdd a nested comment explaining why this function is empty or complete the implementation.(´„˜8Œ½«óÛ1
+~kotlin:S1186z"ZAdd a nested comment explaining why this function is empty or complete the implementation.(£ÖÁÌıÿÿÿÿ8½«óÛ1

@@ -1,0 +1,41 @@
+
+Wkotlin:S1172Í"2Remove this unused function parameter "missionId".(™—Ç¢øÿÿÿÿ8«—ŽÞ1
+^kotlin:S6619ø">Remove this useless non-null assertion !!, it always succeeds.(ðòÐ¨8¸—ŽÞ1
+^kotlin:S6619ý">Remove this useless non-null assertion !!, it always succeeds.(èšŒ8¸—ŽÞ1
+=kotlin:S125L"Remove this commented out code.(áÐ€¶8º—ŽÞ1
+>kotlin:S125×"Remove this commented out code.(ÖÈâ—8»—ŽÞ1
+>kotlin:S125Û"Remove this commented out code.(°’îñ8»—ŽÞ1
+>kotlin:S125›"Remove this commented out code.(‚Æòþ8»—ŽÞ1
+Mkotlin:S108î")Either remove or fill this block of code.(ÍÖ¥ºÿÿÿÿÿ8Ý—ŽÞ1
+Hkotlin:S108Ê")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108Ô")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108â")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108ì")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108ú")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108„")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108’")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108œ")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108ª")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108´")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108Â")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108Ì")Either remove or fill this block of code.(ÿ—ÖÂ8Ý—ŽÞ1
+Hkotlin:S108â")Either remove or fill this block of code.(Ä¶ã¦8Ý—ŽÞ1
+Hkotlin:S108ì")Either remove or fill this block of code.(ÿ—ÖÂ8Þ—ŽÞ1
+Hkotlin:S108‚")Either remove or fill this block of code.(Ä¶ã¦8Þ—ŽÞ1
+Hkotlin:S108Œ")Either remove or fill this block of code.(ÿ—ÖÂ8Þ—ŽÞ1
+Hkotlin:S108ž")Either remove or fill this block of code.(Ä¶ã¦8Þ—ŽÞ1
+Hkotlin:S108¨")Either remove or fill this block of code.(ÿ—ÖÂ8Þ—ŽÞ1
+Wkotlin:S1135¿"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ8è—ŽÞ1
+Wkotlin:S1135á"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ8è—ŽÞ1
+Wkotlin:S1135š"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ8è—ŽÞ1
+Wkotlin:S1135£"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ8è—ŽÞ1
+Lkotlin:S1481é",Remove this unused "success" local variable.(ñÝ©8î—ŽÞ1
+>kotlin:S1128"Remove this unused import.(ŽØîðùÿÿÿÿ8û—ŽÞ1
+>kotlin:S1128-"Remove this unused import.( í»Òùÿÿÿÿ8«¡™ŽÞ1
+Gkotlin:S1874E"#Deprecated code should not be used.(ø½ò‘ùÿÿÿÿ8†‚—ŽÞ1
+Ckotlin:S1874Ä"#Deprecated code should not be used.(‡Ô¹À8†‚—ŽÞ1
+rkotlin:S3776Œ"RRefactor this method to reduce its Cognitive Complexity from 58 to the 15 allowed.(ô›¥Û8ˆ‚—ŽÞ1
+skotlin:S3776¼"SRefactor this method to reduce its Cognitive Complexity from 187 to the 15 allowed.(Ó‹÷ý8Š‚—ŽÞ1
+Nkotlin:S1066ç".Merge this "if" statement with the nested one.(–€¿ 8Ÿ‚—ŽÞ1
+Skotlin:S1066²".Merge this "if" statement with the nested one.(ÈÕã¸ýÿÿÿÿ8Ÿ‚—ŽÞ1
+Mkotlin:S1066Ò".Merge this "if" statement with the nested one.(™µñw8 ‚—ŽÞ1

@@ -1,0 +1,7 @@
+
+bkotlin:S66194">Remove this useless non-null assertion !!, it always succeeds.(ÿ Šùÿÿÿÿ8ãÎ»‚İ1
+]kotlin:S66198">Remove this useless non-null assertion !!, it always succeeds.(Ö¥½›8ãÎ»‚İ1
+Dkotlin:S6305" Don't expose mutable flow types.(Ï’øÎùÿÿÿÿ8†¾¸‚İ1
+Bkotlin:S1874#"#Deprecated code should not be used.(¸ƒÚš8¾¸‚İ1
+Gkotlin:S18744"#Deprecated code should not be used.(ÿ Šùÿÿÿÿ8¾¸‚İ1
+Hkotlin:S1874"#Deprecated code should not be used.(Ô÷ıÿÿÿÿ8õÎ»‚İ1

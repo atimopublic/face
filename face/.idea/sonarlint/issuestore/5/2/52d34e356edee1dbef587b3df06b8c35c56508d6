@@ -1,0 +1,34 @@
+
+Pkotlin:S1172İ"7Use "_" instead of this unused lambda parameter "view".(¶ğåó
+Vkotlin:S1172ñ"=Use "_" instead of this unused lambda parameter "timePicker".(œÛ…ˆ
+<kotlin:S125ƒ"Remove this commented out code.(½Ç„Ëøÿÿÿÿ
+7kotlin:S125—"Remove this commented out code.(–±Ù
+<kotlin:S125ˆ"Remove this commented out code.(“àÈêıÿÿÿÿ
+<kotlin:S125¤"Remove this commented out code.(šğîúûÿÿÿÿ
+Wkotlin:S1144"2Remove this unused private "startPlayback" method.(¼É’„ÿÿÿÿÿ8ÖîßÍÕ1
+Qkotlin:S1144š"1Remove this unused private "stopPlayback" method.(¨ÑÑ‰8ØîßÍÕ1
+Rkotlin:S1144÷"4Remove this unused private "getuserLocation" method.(»¾Ûşÿÿÿÿ
+Qkotlin:S1144Š"1Remove this unused private "initObserver" method.(Ó‹÷ı8İîßÍÕ1
+Pkotlin:S1144Û"2Remove this unused private "setDatePicker" method.(ÔÄ†Øıÿÿÿÿ
+Kkotlin:S1144î"2Remove this unused private "setTimePicker" method.(ãã€è
+Fkotlin:S108¯")Either remove or fill this block of code.(ÍÖ¥ºÿÿÿÿÿ
+Akotlin:S108®")Either remove or fill this block of code.(Ä¶ã¦
+Akotlin:S108¶")Either remove or fill this block of code.(ÿ—ÖÂ
+6kotlin:S6531y"Remove this useless cast.(«äŠğÿÿÿÿÿ
+Ekotlin:S1481ª",Remove this unused "success" local variable.(ñİ©
+9kotlin:S1128"Remove this unused import.(ï›’8î¾àÍÕ1
+9kotlin:S1128
+"Remove this unused import.(—˜å¿8î¾àÍÕ1
+9kotlin:S1128"Remove this unused import.(¼¡‘Í8ï¾àÍÕ1
+9kotlin:S1128"Remove this unused import.(û‹ø8ï¾àÍÕ1
+8kotlin:S1128"Remove this unused import.(ï•§8‡ïßÍÕ1
+9kotlin:S1128"Remove this unused import.(±Ğ½ø8ˆïßÍÕ1
+>kotlin:S1128"Remove this unused import.(¸·èİÿÿÿÿÿ8ˆïßÍÕ1
+9kotlin:S11289"Remove this unused import.(¬£íÇ8ˆïßÍÕ1
+>kotlin:S1128:"Remove this unused import.(¶–ïÈûÿÿÿÿ8ï¾àÍÕ1
+9kotlin:S1128>"Remove this unused import.(¾åï8ˆïßÍÕ1
+>kotlin:S1128H"Remove this unused import.(ˆîáüÿÿÿÿ8ˆïßÍÕ1
+>kotlin:S1128L"Remove this unused import.(üÎÛ øÿÿÿÿ8‰ïßÍÕ1
+@kotlin:S1874b"#Deprecated code should not be used.(ø½ò‘ùÿÿÿÿ
+Jkotlin:S6518ò",Replace function call with indexed accessor.( ãÏËùÿÿÿÿ
+Jkotlin:S6518ó",Replace function call with indexed accessor.(Ö¯Îòşÿÿÿÿ

@@ -1,0 +1,14 @@
+
+Okotlin:S1172h"0Remove this unused function parameter "context".(Á Üé8òÔÓºÜ1
+Dkotlin:S6615B" Remove this useless initializer.(ó„å—üÿÿÿÿ8öÔÓºÜ1
+=kotlin:S6615A" Remove this useless initializer.(Ü±Ş­şÿÿÿÿ
+Ckotlin:S125—"Remove this commented out code.(¨Ì åşÿÿÿÿ8üÔÓºÜ1
+Ckotlin:S125½"Remove this commented out code.(Œìëâüÿÿÿÿ8ıÔÓºÜ1
+lkotlin:S117º"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ßè‹8ƒÕÓºÜ1
+mkotlin:S117¼"NRename this parameter to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(ÃÆË”8ƒÕÓºÜ1
+Bkotlin:S18744"#Deprecated code should not be used.(¨´Òø8£ÕÓºÜ1
+Akotlin:S1874<"#Deprecated code should not be used.(Û¼şH8£ÕÓºÜ1
+Ckotlin:S1874Ä"#Deprecated code should not be used.(¨´Òø8¤ÕÓºÜ1
+Hkotlin:S1874Š"#Deprecated code should not be used.(‘ß•øÿÿÿÿ8¤ÕÓºÜ1
+Hkotlin:S1874"#Deprecated code should not be used.(¼˜Èøÿÿÿÿ8¤ÕÓºÜ1
+fkotlin:S6510¶"AMove "return" statements from all branches before "if" statement.(”õ¨Şşÿÿÿÿ8¯ÕÓºÜ1

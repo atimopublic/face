@@ -1,0 +1,10 @@
+<!-- res/drawable/ic_logout.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#000000"
+        android:pathData="M10,17l-5,-5h4V2h2v10h4l-5,5zM20,4h-2v2h2v16h-2v2h2c1.104,0 2,-0.896 2,-2V6c0,-1.104 -0.896,-2 -2,-2z"/>
+</vector>
