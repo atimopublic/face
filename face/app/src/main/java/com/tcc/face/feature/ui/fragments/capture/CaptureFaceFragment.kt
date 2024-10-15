@@ -37,7 +37,6 @@ open class CaptureFaceFragment : Fragment(R.layout.fragment_face_capture) {
     // ViewBinding instance
     private var _binding: FragmentFaceCaptureBinding? = null
     private val binding get() = _binding!!
-    private lateinit var photoUri: Uri
 
     private val viewModel: DetectionViewModel by activityViewModels()
 
@@ -81,12 +80,12 @@ open class CaptureFaceFragment : Fragment(R.layout.fragment_face_capture) {
 
     private fun openCamera() {
         val photoFile = createImageFile()
-        photoUri = FileProvider.getUriForFile(
+        viewModel.photoUri = FileProvider.getUriForFile(
             requireContext(),
             "${requireContext().packageName}.provider",
             photoFile
         )
-        capturePhotoLauncher.launch(photoUri)
+        capturePhotoLauncher.launch(viewModel.photoUri)
     }
 
     @Throws(IOException::class)
@@ -136,6 +135,10 @@ open class CaptureFaceFragment : Fragment(R.layout.fragment_face_capture) {
                     }
 
                 }
+        }
+
+        binding.imageView.setOnClickListener{
+            requestCameraPermission()
         }
 
     }

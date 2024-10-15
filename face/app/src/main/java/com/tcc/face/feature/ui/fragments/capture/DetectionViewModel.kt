@@ -1,5 +1,6 @@
 package com.tcc.face.feature.ui.fragments.capture
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tcc.face.domain.models.BasicState
@@ -18,7 +19,7 @@ class DetectionViewModel @Inject constructor(
 
     private val _authenticationData = MutableStateFlow<AuthenticationData?>(null)
     var authenticationData: StateFlow<AuthenticationData?> = _authenticationData
-
+    lateinit var photoUri: Uri
     private val _paymentState = MutableStateFlow<BasicState>(BasicState.Idle)
     var paymentState: StateFlow<BasicState> = _paymentState
 
