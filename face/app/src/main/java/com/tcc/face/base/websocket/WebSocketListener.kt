@@ -9,6 +9,9 @@ import okio.ByteString
 
 interface WebSocketCallback {
     fun onMessageReceived(message: WebSocketMessage)
+    fun onConnectionSuccess()
+    fun onConnectionFailure(error: String?)
+    fun onConnectionClosed()
 }
 
 class WebSocketListener (
@@ -20,15 +23,31 @@ class WebSocketListener (
         super.onOpen(webSocket, response)
         // WebSocket connection established
         println("WebSocket Opened")
+        callback.onConnectionSuccess()
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text)
-        // Text message received
+
+        // Log the raw received message
         println("Message Received: $text")
-        val message = gson.fromJson(text, WebSocketMessage::class.java)
-        callback.onMessageReceived(message)
+
+        try {
+            // First, parse the stringified JSON (which is a valid JSON string)
+            val jsonString = gson.fromJson(text, String::class.java)
+
+            // Now parse the unescaped JSON string into the WebSocketMessage object
+            val message = gson.fromJson(jsonString, WebSocketMessage::class.java)
+
+            // Handle the parsed WebSocketMessage
+            callback.onMessageReceived(message)
+        } catch (e: Exception) {
+            // Handle JSON parsing errors
+            println("WS: Failed to parse message: $text")
+            println(e.localizedMessage)
+        }
     }
+
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
         super.onMessage(webSocket, bytes)
@@ -40,11 +59,13 @@ class WebSocketListener (
         super.onClosing(webSocket, code, reason)
         webSocket.close(1000, null)
         println("WebSocket Closing: $code/$reason")
+        callback.onConnectionClosed()
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response)
         println("Error: ${t.message}")
+        callback.onConnectionFailure(t.message)
     }
 
 }

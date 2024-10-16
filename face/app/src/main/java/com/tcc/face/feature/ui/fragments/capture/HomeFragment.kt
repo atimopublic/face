@@ -6,8 +6,12 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -85,8 +89,41 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
     }
 
     override fun onMessageReceived(message: WebSocketMessage) {
-        TODO("Not yet implemented")
+        Log.e("WS:", "Message Received")
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(context, "WS Message Received", Toast.LENGTH_LONG).show()
+        }
     }
+
+    override fun onConnectionSuccess() {
+
+        Log.e("WS:", "Connection Success")
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(activity, "WS Connection Success", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onConnectionFailure(error: String?) {
+        Log.e("WS:", "Connection Fail")
+
+        // Notify the user about the failure
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(activity, "WS Connection Fail: $error", Toast.LENGTH_LONG).show()
+        }
+
+        // Retry the connection after 5 seconds
+        Handler(Looper.getMainLooper()).postDelayed({
+            webSocketManager.startWebSocket()
+        }, 5000) // 5000 milliseconds = 5 seconds
+    }
+
+    override fun onConnectionClosed() {
+        Log.e("WS:", "Connection Closed")
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(activity, "WS Connection Closed", Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun requestCameraPermission() {
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
