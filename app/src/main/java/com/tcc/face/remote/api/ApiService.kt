@@ -1,6 +1,8 @@
 package com.tcc.face.remote.api
 
 
+import com.tcc.face.base.websocket.Trigger
+import com.tcc.face.base.websocket.WebSocketMessage
 import com.tcc.face.domain.models.BasicResponse
 import com.tcc.face.domain.models.CardRequest
 import com.tcc.face.domain.models.CardResponse
@@ -30,6 +32,9 @@ interface ApiService {
 
         @POST("/api/transaction/biometric-verification-and-payment")
         suspend fun authenticatePayment(@Body authenticationRequest: PaymentAuthenticationRequest): Response<BasicResponse<PaymentAuthenticationResponse>>  // Define your response model appropriately
+
+        @GET("/api/trigger/getlive")
+        suspend fun getPayable(@Query("Id") Id: String): Response<BasicResponse<Trigger>>  // Define your response model appropriately
 
 
 }

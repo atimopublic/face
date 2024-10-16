@@ -13,6 +13,7 @@ import com.identy.face.InitializationListener
 import com.identy.face.enums.FaceTemplate
 import com.identy.face.enums.UIOption
 import com.tcc.face.base.Constants
+import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.domain.models.BasicState
 import com.tcc.face.domain.models.PaymentAuthenticationRequest
 import com.tcc.face.feature.ui.fragments.AuthRepository
@@ -44,6 +45,10 @@ class DetectionViewModel @Inject constructor(
     private val _paymentState = MutableStateFlow<BasicState>(BasicState.Idle)
     var paymentState: StateFlow<BasicState> = _paymentState
 
+    private val _payableState = MutableStateFlow<BasicState>(BasicState.Idle)
+    var payableState: StateFlow<BasicState> = _payableState
+    var newPayable: Trigger? = null
+
     // Functions to update step data
     fun setAuthenticationData(data: AuthenticationData) {
         _authenticationData.value = data
@@ -56,10 +61,12 @@ class DetectionViewModel @Inject constructor(
         billNum=""
         face64=""
         accountId=""
+        payableState = MutableStateFlow<BasicState>(BasicState.Idle)
     }
     fun resetViewModel() {
         _authenticationData.value = null
         paymentState = MutableStateFlow<BasicState>(BasicState.Idle)
+        payableState = MutableStateFlow<BasicState>(BasicState.Idle)
     }
 
 
@@ -85,6 +92,26 @@ class DetectionViewModel @Inject constructor(
             }
         }
     }
+
+    fun getPayable() {
+        viewModelScope.launch {
+           // _payableState.value = BasicState.Loading
+            try {
+                val result = authRepo.getPayable(Constants.DEVICE_ID)
+                if (result.isSuccess && result.getOrNull()?.success == true) {
+                    newPayable = result.getOrNull()?.data
+                    _payableState.value = BasicState.Success
+                } else {
+                    _payableState.value = BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
+                }
+            } catch (e: Exception) {
+                _payableState.value = BasicState.Error("Error: ${e.message}")
+            }
+        }
+    }
+
+    fun isPayableIdle(): Boolean =
+        payableState.value == BasicState.Idle || payableState.value is BasicState.Error
 
     fun initFaceSdk(context: Activity) {
 
