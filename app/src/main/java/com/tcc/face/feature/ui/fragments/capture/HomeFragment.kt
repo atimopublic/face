@@ -24,15 +24,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
-
 import com.tcc.face.R
-
 import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
 import com.tcc.face.domain.models.BasicState
-
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.OkHttpClient
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -175,48 +171,65 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
     fun observeViewModel()
     {
-        viewModel.getFaceResponse().observe(requireActivity()) { identyResponse ->
-            // hideProgress()
 
-            val faceOutput: FaceOutput = identyResponse!!.prints
-            val score = faceOutput!!.score
-            if (faceOutput != null) {
-                  showLoading(false)
-                faceCaptured=true
-
-
-                if (faceOutput.spoofScore > 0.7f) {
-                    try {
-                        val pngPhoto = faceOutput.templates[FaceTemplate.PNG]
-
-                        viewModel.face64=pngPhoto!!
+        lifecycleScope.launchWhenStarted {
+            viewModel.faceResponse.collect { identyResponse ->
+                // Trigger navigation
+                val faceOutput: FaceOutput = identyResponse!!.prints
+                val score = faceOutput!!.score
+                if (faceOutput != null) {
+                    showLoading(false)
+                    faceCaptured=true
 
 
-                        // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
-                        val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
-                    //    printSizeInKb(dataBase64)
+                    if (faceOutput.spoofScore > 0.7f) {
+                        try {
+                            val pngPhoto = faceOutput.templates[FaceTemplate.PNG]
 
-                        val pngBitmap = BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
-                        viewModel.faceBit=pngBitmap
+                            viewModel.face64=pngPhoto!!
 
-                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPinCreationFragment())
 
-                        //Face  SDK initialization
-                        //
-                    } catch (e: Exception) {
-                        Log.e(TAG, "faceResponse: ", e);
-                        showLoading(false)
-                        Toast.makeText(
-                            requireActivity(),
-                            e.getLocalizedMessage(),
-                            Toast.LENGTH_SHORT
-                        ).show();
+                            // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
+                            val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
+                            //    printSizeInKb(dataBase64)
+
+                            val pngBitmap = BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
+                            viewModel.faceBit=pngBitmap
+
+                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPinCreationFragment())
+
+                            //Face  SDK initialization
+                            //
+                        } catch (e: Exception) {
+                            Log.e(TAG, "faceResponse: ", e);
+                            showLoading(false)
+                            Toast.makeText(
+                                requireActivity(),
+                                e.getLocalizedMessage(),
+                                Toast.LENGTH_SHORT
+                            ).show();
+                        }
                     }
+
+
                 }
-
-
             }
         }
+
+        lifecycleScope.launchWhenStarted {
+
+            viewModel.errorResponse.collect{ s ->
+                showLoading(false)
+                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
+
+
+
+
 
         lifecycleScope.launchWhenStarted {
             viewModel.payableState.collect { payableState ->

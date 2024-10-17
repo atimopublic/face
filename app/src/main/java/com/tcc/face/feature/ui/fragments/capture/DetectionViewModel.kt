@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +21,9 @@ import com.tcc.face.feature.ui.fragments.AuthRepository
 import com.tcc_arr.tccface.TccFace
 import com.tcc_arr.tccface.TccResponseListener
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,9 +39,15 @@ class DetectionViewModel @Inject constructor(
      var accountId: String?="2F34A6A1-59F7-4FB7-4802-08DCEDF0023A"
      var face64:String?=""
 
-    private val faceResponse = MutableLiveData<IdentyResponse?>()
     private val docResponse = MutableLiveData<IdentyResponse>()
-    private val errorResponse = MutableLiveData<String>()
+
+
+    private val _faceResponse = MutableSharedFlow<IdentyResponse>()
+    val faceResponse: SharedFlow<IdentyResponse> = _faceResponse
+
+    private val _errorResponse = MutableSharedFlow<String>()
+    val errorResponse: SharedFlow<String> = _errorResponse
+
     private val _authenticationData = MutableStateFlow<AuthenticationData?>(null)
     var authenticationData: StateFlow<AuthenticationData?> = _authenticationData
     lateinit var photoUri: Uri
@@ -74,9 +83,7 @@ class DetectionViewModel @Inject constructor(
         val billNum: String,
         val imageData: String?
     )
-    fun getFaceResponse(): MutableLiveData<IdentyResponse?> {
-        return faceResponse
-    }
+
     fun payment(request: PaymentAuthenticationRequest) {
         viewModelScope.launch {
             _paymentState.value = BasicState.Loading
@@ -113,76 +120,96 @@ class DetectionViewModel @Inject constructor(
     fun isPayableIdle(): Boolean =
         payableState.value == BasicState.Idle || payableState.value is BasicState.Error
 
+    fun flow()
+    {
+
+    }
     fun initFaceSdk(context: Activity) {
 
-        try {
-            TccFace.newInstance(context, Constants.FACE_API_KEY, Constants.FACE_SECRET_KEY, object :
-                InitializationListener<TccFace?> {
+        viewModelScope.launch {
+
+            try {
+                TccFace.newInstance(context, Constants.FACE_API_KEY, Constants.FACE_SECRET_KEY, object :
+                    InitializationListener<TccFace?> {
 
 
-                override fun onInit(tccFace: TccFace?) {
-                    tccFace?.disableTraining()
-                    try {
-                        tccFace?.setASSecLevel(AS.HIGHEST)
-                        //tccFace.enableICAOChecks();
-                        tccFace?.setUioption(UIOption.TICKING_V2)
-                        val templates: ArrayList<FaceTemplate> = ArrayList<FaceTemplate>()
-                        templates.add(FaceTemplate.PNG)
-                        //templates.add(FaceTemplate.ISO_19794_5);
-                        tccFace?.setRequiredTemplates(templates)
-                        tccFace?.capture()
-                    } catch (e: java.lang.Exception) {
+                    override fun onInit(tccFace: TccFace?) {
+                        tccFace?.disableTraining()
+                        try {
+                            tccFace?.setASSecLevel(AS.HIGHEST)
+                            //tccFace.enableICAOChecks();
+                            tccFace?.setUioption(UIOption.TICKING_V2)
+                            val templates: ArrayList<FaceTemplate> = ArrayList<FaceTemplate>()
+                            templates.add(FaceTemplate.PNG)
+                            //templates.add(FaceTemplate.ISO_19794_5);
+                            tccFace?.setRequiredTemplates(templates)
+                            tccFace?.capture()
+                        } catch (e: java.lang.Exception) {
 
-                        Log.e("error","="+e.localizedMessage)
-                        //  errorResponse.postValue(e.localizedMessage)
-                    }
-                }
-
-                override fun onInitFailed() {
-                    errorResponse.postValue("License error")
-                    Log.e("error","="+"License error")
-
-                }
-            },
-                object : TccResponseListener {
-                    override fun onAttempt(i: Int, attempt: com.identy.face.Attempt?) {
-                    }
-
-                    override fun onResponse(
-                        identyResponse: com.identy.face.IdentyResponse?,
-                        hashSet: HashSet<String?>
-                    ) {
-                        if (!hashSet.isEmpty()) {
-                            //   val transactionId = hashSet.stream().findFirst().get()
-                            Log.e("error","="+"transactionId")
-
-                            /*
-                            Log.d(
-                                TAG,
-                                "onResponse: transactionId $transactionId"
-                            )
-
-                             */
-                            //    SavedData.faceTransactionId = transactionId
-                            faceResponse.postValue(identyResponse)
+                            Log.e("error","="+e.localizedMessage)
+                            //  errorResponse.postValue(e.localizedMessage)
                         }
                     }
 
-                    override fun onErrorResponse(
-                        identyError: com.identy.face.IdentyError,
-                        hashSet: HashSet<String?>?
-                    ) {
-                        errorResponse.postValue(identyError.getMessage())
+                    override fun onInitFailed() {
+                        viewModelScope.launch {
+                            _errorResponse.emit("License error")
+
+                        }
+                        Log.e("error","="+"License error")
+
                     }
                 },
-                false,
-                false
-            )
-        } catch (e: java.lang.Exception) {
-            Log.e("error","="+e.localizedMessage)
+                    object : TccResponseListener {
+                        override fun onAttempt(i: Int, attempt: com.identy.face.Attempt?) {
+                        }
 
-            errorResponse.postValue(e.localizedMessage)
+                        override fun onResponse(
+                            identyResponse: com.identy.face.IdentyResponse?,
+                            hashSet: HashSet<String?>
+                        ) {
+                            if (!hashSet.isEmpty()) {
+                                //   val transactionId = hashSet.stream().findFirst().get()
+                                Log.e("error","="+"transactionId")
+
+                                /*
+                                Log.d(
+                                    TAG,
+                                    "onResponse: transactionId $transactionId"
+                                )
+
+                                 */
+                                //    SavedData.faceTransactionId = transactionId
+                                viewModelScope.launch {
+                                    _faceResponse.emit(identyResponse!!)
+
+                                }
+                            }
+                        }
+
+                        override fun onErrorResponse(
+                            identyError: com.identy.face.IdentyError,
+                            hashSet: HashSet<String?>?
+                        ) {
+                            viewModelScope.launch {
+                                _errorResponse.emit(identyError.getMessage())
+
+                            }
+                        }
+                    },
+                    false,
+                    false
+                )
+            } catch (e: java.lang.Exception) {
+                Log.e("error","="+e.localizedMessage)
+                viewModelScope.launch {
+                    _errorResponse.emit(e.localizedMessage)
+
+                }
+            }
+
         }
+
 
     }
 
