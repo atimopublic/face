@@ -19,6 +19,7 @@ import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.domain.models.BasicState
 import com.tcc.face.domain.models.PaymentAuthenticationRequest
 import com.tcc.face.feature.ui.fragments.AuthRepository
+import com.tcc.face.utils.SharedPreferencesManager
 import com.tcc_arr.tccface.TccFace
 import com.tcc_arr.tccface.TccResponseListener
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,15 +32,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetectionViewModel @Inject constructor(
-    private val authRepo: AuthRepository
+    private val authRepo: AuthRepository,
+    private val sharedPreferencesManager: SharedPreferencesManager
 ) : ViewModel() {
 
-     var faceBit :Bitmap?=null
-     var amount :String?=""
-     var billNum: String?=""
-     var accountId: String?=""
-     var face64:String?=""
-
+    var faceBit: Bitmap? = null
+    var amount: String? = ""
+    var billNum: String? = ""
+    var accountId: String? = ""
+    var face64: String? = ""
 
 
     private val _faceResponse = MutableSharedFlow<IdentyResponse>()
@@ -63,15 +64,23 @@ class DetectionViewModel @Inject constructor(
         _authenticationData.value = data
     }
 
-    fun clearTransaction()
-    {
-        face64=""
-        amount=""
-        billNum=""
-        face64=""
-        accountId=""
+    fun clearTransaction() {
+        face64 = ""
+        amount = ""
+        billNum = ""
+        face64 = ""
+        accountId = ""
         resetViewModel()
     }
+
+    fun getFirstTimeStatus(): Boolean {
+        return sharedPreferencesManager.getFirstTime()
+    }
+
+    fun setFirstTime(boolean: Boolean) {
+        sharedPreferencesManager.firstTime(boolean)
+    }
+
     fun resetViewModel() {
         viewModelScope.launch {
             _authenticationData.emit(null)
@@ -81,6 +90,7 @@ class DetectionViewModel @Inject constructor(
         }
 
     }
+
     fun updatePayableState(newState: BasicState) {
         viewModelScope.launch {
             _payableState.emit(newState) // Emit new state
@@ -100,10 +110,12 @@ class DetectionViewModel @Inject constructor(
                 if (result.isSuccess && result.getOrNull()?.success == true) {
                     _paymentState.value = BasicState.Success
                 } else {
-                    if(result.getOrNull()?.error?.errorMessage != null)
-                        _paymentState.value = BasicState.Error("Failed: ${result.getOrNull()?.error?.errorMessage}")
+                    if (result.getOrNull()?.error?.errorMessage != null)
+                        _paymentState.value =
+                            BasicState.Error("Failed: ${result.getOrNull()?.error?.errorMessage}")
                     else
-                        _paymentState.value = BasicState.Error("Failed: Payment authentication is failed")
+                        _paymentState.value =
+                            BasicState.Error("Failed: Payment authentication is failed")
                 }
             } catch (e: retrofit2.HttpException) {
                 // Check if it's a 404 error
@@ -113,7 +125,8 @@ class DetectionViewModel @Inject constructor(
                     // Try to parse the error body
                     _paymentState.value = BasicState.Error("Error 404: $errorBody")
                 } else {
-                    _paymentState.value = BasicState.Error("HTTP Error: ${errorBody} ${e.message()}")
+                    _paymentState.value =
+                        BasicState.Error("HTTP Error: ${errorBody} ${e.message()}")
                 }
             } catch (e: Exception) {
                 _paymentState.value = BasicState.Error("Error: ${e.message}")
@@ -123,20 +136,26 @@ class DetectionViewModel @Inject constructor(
 
     fun getPayable() {
         viewModelScope.launch {
-           // _payableState.value = BasicState.Loading
+            // _payableState.value = BasicState.Loading
             try {
                 val result = authRepo.getPayable(Constants.DEVICE_ID)
                 if (result.isSuccess && result.getOrNull()?.success == true) {
-                    Log.e("succ","error"+result.getOrNull()?.data)
-                    newPayable = result.getOrNull()?.data
-                    _payableState.value = BasicState.Success
-                } else {
-                    Log.e("failed","error"+result.getOrNull()?.data)
+                    Log.e("succ", "error" + result.getOrNull()?.data)
 
-                    _payableState.value = BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
+                    val billNum = result.getOrNull()?.data?.billNumber
+                    if (billNum != null && billNum != newPayable?.billNumber) {
+                        newPayable = result.getOrNull()?.data
+                        _payableState.value = BasicState.Success
+                    }
+
+                } else {
+                    Log.e("failed", "error" + result.getOrNull()?.data)
+
+                    _payableState.value =
+                        BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
                 }
             } catch (e: Exception) {
-                Log.e("exception",e.message.toString())
+                Log.e("exception", e.message.toString())
 
                 _payableState.value = BasicState.Error("Error: ${e.message}")
             }
@@ -152,40 +171,41 @@ class DetectionViewModel @Inject constructor(
         viewModelScope.launch {
 
             try {
-                TccFace.newInstance(context, Constants.FACE_API_KEY, Constants.FACE_SECRET_KEY, object :
-                    InitializationListener<TccFace?> {
+                TccFace.newInstance(
+                    context, Constants.FACE_API_KEY, Constants.FACE_SECRET_KEY, object :
+                        InitializationListener<TccFace?> {
 
 
-                    override fun onInit(tccFace: TccFace?) {
-                        tccFace?.disableTraining()
-                        try {
-                            tccFace?.setASSecLevel(AS.HIGHEST)
-                            //tccFace.enableICAOChecks();
-                            tccFace?.setUioption(UIOption.TICKING_V2)
-                            val templates: ArrayList<FaceTemplate> = ArrayList<FaceTemplate>()
-                            templates.add(FaceTemplate.PNG)
-                            //templates.add(FaceTemplate.ISO_19794_5);
-                            tccFace?.setRequiredTemplates(templates)
-                            tccFace?.capture()
-                        } catch (e: java.lang.Exception) {
+                        override fun onInit(tccFace: TccFace?) {
+                            tccFace?.disableTraining()
+                            try {
+                                tccFace?.setASSecLevel(AS.HIGHEST)
+                                //tccFace.enableICAOChecks();
+                                tccFace?.setUioption(UIOption.TICKING_V2)
+                                val templates: ArrayList<FaceTemplate> = ArrayList<FaceTemplate>()
+                                templates.add(FaceTemplate.PNG)
+                                //templates.add(FaceTemplate.ISO_19794_5);
+                                tccFace?.setRequiredTemplates(templates)
+                                tccFace?.capture()
+                            } catch (e: java.lang.Exception) {
 
-                            viewModelScope.launch {
-                                Log.e("error","="+e.localizedMessage)
-                                _errorResponse.emit(e.localizedMessage)
+                                viewModelScope.launch {
+                                    Log.e("error", "=" + e.localizedMessage)
+                                    _errorResponse.emit(e.localizedMessage)
+                                }
+
                             }
+                        }
+
+                        override fun onInitFailed() {
+                            viewModelScope.launch {
+                                _errorResponse.emit("License error")
+
+                            }
+                            Log.e("error", "=" + "License error")
 
                         }
-                    }
-
-                    override fun onInitFailed() {
-                        viewModelScope.launch {
-                            _errorResponse.emit("License error")
-
-                        }
-                        Log.e("error","="+"License error")
-
-                    }
-                },
+                    },
                     object : TccResponseListener {
                         override fun onAttempt(i: Int, attempt: com.identy.face.Attempt?) {
                         }
@@ -196,7 +216,7 @@ class DetectionViewModel @Inject constructor(
                         ) {
                             if (!hashSet.isEmpty()) {
                                 //   val transactionId = hashSet.stream().findFirst().get()
-                                Log.e("error","="+"transactionId")
+                                Log.e("error", "=" + "transactionId")
 
                                 /*
                                 Log.d(
@@ -227,7 +247,7 @@ class DetectionViewModel @Inject constructor(
                     false
                 )
             } catch (e: java.lang.Exception) {
-                Log.e("error","="+e.localizedMessage)
+                Log.e("error", "=" + e.localizedMessage)
                 viewModelScope.launch {
                     _errorResponse.emit(e.localizedMessage)
 

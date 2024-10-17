@@ -61,23 +61,25 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         // Set up UI interactions and listeners
         setupUI()
         observeViewModel()
-        binding.txtBillNumValue.text=viewModel.billNum
-        binding.txtAmountValue.text=viewModel.amount
+        binding.txtBillNumValue.text = viewModel.billNum
+        binding.txtAmountValue.text = viewModel.amount
     }
-
-
-
 
 
     private fun setupUI() {
 
 
-
         binding.pinKeyboard.onClickListener = { key ->
-            when(key) {
-                is PinKeyboard.Key.Code -> { onCodeClicked(key) }
-                is PinKeyboard.Key.Clear -> { onClearClicked() }
-                is PinKeyboard.Key.Action -> {  }
+            when (key) {
+                is PinKeyboard.Key.Code -> {
+                    onCodeClicked(key)
+                }
+
+                is PinKeyboard.Key.Clear -> {
+                    onClearClicked()
+                }
+
+                is PinKeyboard.Key.Action -> {}
             }
         }
 
@@ -89,11 +91,18 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         binding.imgBack.setOnClickListener { findNavController().navigateUp() }
 
     }
+
     private fun onWrongPin(attemptsRemained: Int) {
         binding.pinView.setError(true)
         binding.pinView.shake()
-        binding.tvPinHint.setTextColor(ContextCompat.getColor(binding.tvPinHint.context, R.color.red))
-        binding.tvPinHint.text = resources.getString(R.string.pin_error_wrong_pin_tmpl, attemptsRemained)
+        binding.tvPinHint.setTextColor(
+            ContextCompat.getColor(
+                binding.tvPinHint.context,
+                R.color.red
+            )
+        )
+        binding.tvPinHint.text =
+            resources.getString(R.string.pin_error_wrong_pin_tmpl, attemptsRemained)
         binding.pinView.clear()
         pinBuilder.clear()
     }
@@ -116,7 +125,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
     }
 
     private fun onPinReady(pin: String) {
-      ///  viewModel.onPinReady(pin)
+        ///  viewModel.onPinReady(pin)
         if (isValidInput(pin)) {
             viewModel.payment(
                 PaymentAuthenticationRequest(
@@ -137,9 +146,10 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
 
     private fun onNoError() {
         binding.pinView.setError(false)
-    //    binding.tvPinHint.text = getString(R.string.pin_sign_hint)
-      //  binding.tvPinHint.setTextColor(ContextCompat.getColor(binding.tvPinTitle.context, R.color.white))
+        //    binding.tvPinHint.text = getString(R.string.pin_sign_hint)
+        //  binding.tvPinHint.setTextColor(ContextCompat.getColor(binding.tvPinTitle.context, R.color.white))
     }
+
     private fun observeViewModel() {
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -148,7 +158,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
                     when (paymentState) {
                         is BasicState.Loading -> showLoading(true)
                         is BasicState.Success -> {
-                            showLoading(false)
+                            showLoading(true)
                             handleSignUpSuccess()
 
                         }
@@ -157,6 +167,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
                             showLoading(false)
 
                             findNavController().navigateUp()
+                            viewModel.setFirstTime(false)
                             Toast.makeText(context, paymentState.message, Toast.LENGTH_LONG).show()
                         }
 
@@ -170,9 +181,10 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
     }
 
     private fun showLoading(isLoading: Boolean) {
-                binding.llProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
-                //  binding.loginBtn.isEnabled = !isLoading
-            }
+        binding.llProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
+        //  binding.loginBtn.isEnabled = !isLoading
+    }
+
     private fun isValidInput(pin: String): Boolean {
         return pin.isNotEmpty()
     }
@@ -181,6 +193,8 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         Toast.makeText(context, "Success! Payment is processed successfully", Toast.LENGTH_SHORT)
             .show()
         viewModel.clearTransaction()
+        viewModel.setFirstTime(true)
+
 
         findNavController().navigateUp()
     }

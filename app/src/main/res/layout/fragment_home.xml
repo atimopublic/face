@@ -60,7 +60,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/face_capturing"
+                android:src="@drawable/boy_white_background"
                 app:flow_horizontalAlign="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

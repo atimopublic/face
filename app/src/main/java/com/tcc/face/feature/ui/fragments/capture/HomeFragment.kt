@@ -233,12 +233,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
 
-
-
-
-
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.payableState.collect { payableState ->
@@ -314,7 +308,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.amount = message.amount.toString()
         viewModel.accountId = message.account_ID
 
-        binding.txtAmountValue.text = viewModel.amount
+        binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
         binding.txtBillNumValue.text = viewModel.billNum
 
     }
@@ -336,6 +330,18 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.transactionLayout.visibility=View.GONE
             viewModel.clearTransaction()
 
+        }
+
+        if (viewModel.getFirstTimeStatus())
+        {
+            Log.e("hh","true")
+            binding.waitingLayout.visibility=View.VISIBLE
+            binding.transactionLayout.visibility=View.GONE
+        }else{
+            Log.e("hh","false")
+
+            binding.waitingLayout.visibility=View.GONE
+            binding.transactionLayout.visibility=View.VISIBLE
         }
 
 

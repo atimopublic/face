@@ -2,6 +2,8 @@ package com.tcc.face.base
 
 object Constants {
 
+    val First: String?="first"
+
     // tcc poc
     val   FACE_API_KEY = "sd5fw3BYvl2+5zzLr1dCAEk+wjnY/AnU688slIk=";
     val  FACE_SECRET_KEY  = "685df38637e56e928ba2be01aa602e90";
