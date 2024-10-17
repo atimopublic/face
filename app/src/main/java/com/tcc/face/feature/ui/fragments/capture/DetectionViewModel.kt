@@ -3,6 +3,7 @@ package com.tcc.face.feature.ui.fragments.capture
 import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
+import android.net.http.HttpException
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -34,12 +35,11 @@ class DetectionViewModel @Inject constructor(
 ) : ViewModel() {
 
      var faceBit :Bitmap?=null
-     var amount :String?="12"
-     var billNum: String?="12345"
-     var accountId: String?="2F34A6A1-59F7-4FB7-4802-08DCEDF0023A"
+     var amount :String?=""
+     var billNum: String?=""
+     var accountId: String?=""
      var face64:String?=""
 
-    private val docResponse = MutableLiveData<IdentyResponse>()
 
 
     private val _faceResponse = MutableSharedFlow<IdentyResponse>()
@@ -70,14 +70,22 @@ class DetectionViewModel @Inject constructor(
         billNum=""
         face64=""
         accountId=""
-        payableState = MutableStateFlow<BasicState>(BasicState.Idle)
+        resetViewModel()
     }
     fun resetViewModel() {
-        _authenticationData.value = null
-        paymentState = MutableStateFlow<BasicState>(BasicState.Idle)
-        payableState = MutableStateFlow<BasicState>(BasicState.Idle)
-    }
+        viewModelScope.launch {
+            _authenticationData.emit(null)
 
+            _paymentState.emit(BasicState.Idle)
+            _payableState.emit(BasicState.Idle)
+        }
+
+    }
+    fun updatePayableState(newState: BasicState) {
+        viewModelScope.launch {
+            _payableState.emit(newState) // Emit new state
+        }
+    }
 
     data class AuthenticationData(
         val billNum: String,
@@ -89,10 +97,23 @@ class DetectionViewModel @Inject constructor(
             _paymentState.value = BasicState.Loading
             try {
                 val result = authRepo.authenticatePayment(request)
-                if (result.isSuccess) {
+                if (result.isSuccess && result.getOrNull()?.success == true) {
                     _paymentState.value = BasicState.Success
                 } else {
-                    _paymentState.value = BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
+                    if(result.getOrNull()?.error?.errorMessage != null)
+                        _paymentState.value = BasicState.Error("Failed: ${result.getOrNull()?.error?.errorMessage}")
+                    else
+                        _paymentState.value = BasicState.Error("Failed: Payment authentication is failed")
+                }
+            } catch (e: retrofit2.HttpException) {
+                // Check if it's a 404 error
+                val errorBody = e.response()?.errorBody()?.string() ?: "Unknown error"
+
+                if (e.code() == 404) {
+                    // Try to parse the error body
+                    _paymentState.value = BasicState.Error("Error 404: $errorBody")
+                } else {
+                    _paymentState.value = BasicState.Error("HTTP Error: ${errorBody} ${e.message()}")
                 }
             } catch (e: Exception) {
                 _paymentState.value = BasicState.Error("Error: ${e.message}")
@@ -106,12 +127,17 @@ class DetectionViewModel @Inject constructor(
             try {
                 val result = authRepo.getPayable(Constants.DEVICE_ID)
                 if (result.isSuccess && result.getOrNull()?.success == true) {
+                    Log.e("succ","error"+result.getOrNull()?.data)
                     newPayable = result.getOrNull()?.data
                     _payableState.value = BasicState.Success
                 } else {
+                    Log.e("failed","error"+result.getOrNull()?.data)
+
                     _payableState.value = BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
                 }
             } catch (e: Exception) {
+                Log.e("exception",e.message.toString())
+
                 _payableState.value = BasicState.Error("Error: ${e.message}")
             }
         }
@@ -120,10 +146,7 @@ class DetectionViewModel @Inject constructor(
     fun isPayableIdle(): Boolean =
         payableState.value == BasicState.Idle || payableState.value is BasicState.Error
 
-    fun flow()
-    {
 
-    }
     fun initFaceSdk(context: Activity) {
 
         viewModelScope.launch {
@@ -146,8 +169,11 @@ class DetectionViewModel @Inject constructor(
                             tccFace?.capture()
                         } catch (e: java.lang.Exception) {
 
-                            Log.e("error","="+e.localizedMessage)
-                            //  errorResponse.postValue(e.localizedMessage)
+                            viewModelScope.launch {
+                                Log.e("error","="+e.localizedMessage)
+                                _errorResponse.emit(e.localizedMessage)
+                            }
+
                         }
                     }
 

@@ -101,7 +101,7 @@
     <string name="pin_error_wrong_pin_tmpl">Wrong PIN. Attempts remained: %d</string>
     <string name="face_paying">Face Pay</string>
     <string name="waiting_for_new_transaction">Waiting new transaction....</string>
-    <string name="bill_num">Bill num :</string>
+    <string name="bill_num">Bill Num:</string>
     <string name="amount">Amount :</string>
     <string name="enter_pin_code">Enter Pin Code</string>
     <string name="cancel_transaction">Cancel Transaction</string>

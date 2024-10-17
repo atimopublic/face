@@ -20,7 +20,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
@@ -29,6 +31,7 @@ import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
 import com.tcc.face.domain.models.BasicState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -108,7 +111,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         runnable = object : Runnable {
             override fun run() {
                 // Schedule the task to run again after 10 seconds
-                handler.postDelayed(this, 10000)
+                handler.postDelayed(this, 5000)
                 // Check if the state is not Idle before calling getPayable
                 if (viewModel.isPayableIdle()) {
                     viewModel.getPayable()
@@ -172,55 +175,60 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     fun observeViewModel()
     {
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.faceResponse.collect { identyResponse ->
-                // Trigger navigation
-                val faceOutput: FaceOutput = identyResponse!!.prints
-                val score = faceOutput!!.score
-                if (faceOutput != null) {
-                    showLoading(false)
-                    faceCaptured=true
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.faceResponse.collect { identyResponse ->
+                    // Trigger navigation
+                    val faceOutput: FaceOutput = identyResponse!!.prints
+                    val score = faceOutput!!.score
+                    if (faceOutput != null) {
+                        showLoading(false)
+                        faceCaptured = true
 
 
-                    if (faceOutput.spoofScore > 0.7f) {
-                        try {
-                            val pngPhoto = faceOutput.templates[FaceTemplate.PNG]
+                        if (faceOutput.spoofScore > 0.7f) {
+                            try {
+                                val pngPhoto = faceOutput.templates[FaceTemplate.PNG]
 
-                            viewModel.face64=pngPhoto!!
+                                viewModel.face64 = pngPhoto!!
 
 
-                            // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
-                            val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
-                            //    printSizeInKb(dataBase64)
+                                // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
+                                val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
+                                //    printSizeInKb(dataBase64)
 
-                            val pngBitmap = BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
-                            viewModel.faceBit=pngBitmap
+                                val pngBitmap =
+                                    BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
+                                viewModel.faceBit = pngBitmap
 
-                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPinCreationFragment())
+                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPinCreationFragment())
 
-                            //Face  SDK initialization
-                            //
-                        } catch (e: Exception) {
-                            Log.e(TAG, "faceResponse: ", e);
-                            showLoading(false)
-                            Toast.makeText(
-                                requireActivity(),
-                                e.getLocalizedMessage(),
-                                Toast.LENGTH_SHORT
-                            ).show();
+                                //Face  SDK initialization
+                                //
+                            } catch (e: Exception) {
+                                Log.e(TAG, "faceResponse: ", e);
+                                showLoading(false)
+                                Toast.makeText(
+                                    requireActivity(),
+                                    e.getLocalizedMessage(),
+                                    Toast.LENGTH_SHORT
+                                ).show();
+                            }
                         }
+
+
                     }
-
-
                 }
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-            viewModel.errorResponse.collect{ s ->
-                showLoading(false)
-                Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
+                viewModel.errorResponse.collect { s ->
+                    showLoading(false)
+                    Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -231,20 +239,28 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.payableState.collect { payableState ->
-                when (payableState) {
-                    is BasicState.Loading -> {
-                    }
-                    is BasicState.Success -> {
-                        viewModel.newPayable?.let { onMessageReceived(it) }
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.payableState.collect { payableState ->
+                    when (payableState) {
+                        is BasicState.Loading -> {
+                            Log.e("loading","iii")
 
-                    is BasicState.Error -> {
-                        Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
-                    }
+                        }
 
-                    BasicState.Idle -> {
+                        is BasicState.Success -> {
+                            viewModel.newPayable?.let { onMessageReceived(it) }
+                        }
+
+                        is BasicState.Error -> {
+                            Log.e("error",payableState.message)
+                           // Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
+                        }
+
+                        BasicState.Idle -> {
+                            Log.e("idle","iii")
+
+                        }
                     }
                 }
             }
@@ -291,10 +307,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun onMessageReceived(message: Trigger) {
-        Log.e("WS:", "Message Received")
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(context, "WS Message Received", Toast.LENGTH_LONG).show()
-        }
+
         binding.waitingLayout.visibility=View.GONE
         binding.transactionLayout.visibility=View.VISIBLE
         viewModel.billNum = message.billNumber

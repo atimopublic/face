@@ -1,6 +1,7 @@
 package com.tcc.face.feature.ui.fragments
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.remote.api.ApiService
 import com.tcc.face.domain.models.BasicResponse
@@ -95,46 +96,43 @@ class AuthRepository @Inject constructor(
             Result.failure(e)
         }
 
-    suspend fun authenticatePayment(paymentRequest: PaymentAuthenticationRequest): Result<BasicResponse<PaymentAuthenticationResponse>?> =
-        try {
-            val response = apiService.authenticatePayment(paymentRequest)
+    suspend fun authenticatePayment(paymentRequest: PaymentAuthenticationRequest): Result<BasicResponse<PaymentAuthenticationResponse>?> {
+        val response = apiService.authenticatePayment(paymentRequest)
+
+        return try {
 
             if (response.isSuccessful) {
                 Result.success(response.body())
-            } else {
-
-                val gson = Gson()
-                val error: Error = gson.fromJson(response?.errorBody()?.string(), Error::class.java)
-                Result.failure(Exception("${error.errorCode} (Payment Failed) ${error.errorMessage}"))
-            }
-            /*
-            else if (response.toString().contains("503")) {
+            } else if (response.toString().contains("503")) {
                 Result.failure(Exception("Server is down"))
             } else if (response.toString().contains("400")) {
-                Result.failure(Exception("$errorCode Bad request $errorMessage"))
+                Result.failure(Exception("${response.errorBody()?.string()}"))
             } else if (response.toString().contains("500")) {
-                Result.failure(Exception("Internal server error"))
+                Result.failure(Exception("${response.errorBody()?.string()}"))
             } else {
-                Result.failure(Exception("$errorCode Failed to process payment $errorMessage"))
-            }*/
+                Result.failure(Exception("${response.errorBody()?.string()}"))
+            }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(Exception("${response.errorBody()?.string()}"))
         }
+    }
 
-    suspend fun getPayable(id: String): Result<BasicResponse<Trigger>?> =
-        try {
-            val response = apiService.getPayable(id)
+        suspend fun getPayable(id: String): Result<BasicResponse<Trigger>?> =
+            try {
+                val response = apiService.getPayable(id)
 
-            if (response.isSuccessful) {
-                Result.success(response.body())
-            } else {
+                if (response.isSuccessful) {
+                    Result.success(response.body())
+                } else {
 
-                val gson = Gson()
-                val error: Error = gson.fromJson(response?.errorBody()?.string(), Error::class.java)
-                Result.failure(Exception("${error.errorCode} (Failed to Payable) ${error.errorMessage}"))
+                    val gson = Gson()
+                    val error: Error =
+                        gson.fromJson(response?.errorBody()?.string(), Error::class.java)
+                    Result.failure(Exception("${error.errorCode} (Failed to Payable) ${error.errorMessage}"))
+                }
+
+            } catch (e: Exception) {
+                Result.failure(e)
             }
 
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
 }

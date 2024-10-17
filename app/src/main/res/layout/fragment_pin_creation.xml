@@ -89,6 +89,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/txt_amount_value"
         app:layout_constraintEnd_toStartOf="@+id/txt_amount_value"
         app:layout_constraintTop_toTopOf="@+id/txt_amount_value" />
+
     <com.tcc.face.base.ui.PinView
         android:id="@+id/pinView"
         android:layout_width="match_parent"
@@ -114,9 +115,9 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/img_face" />
 
     <TextView
         android:id="@+id/textView3"
@@ -138,7 +139,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPinHint"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:srcCompat="@drawable/boy_white_background" />
     <LinearLayout
         android:id="@+id/llProgress"

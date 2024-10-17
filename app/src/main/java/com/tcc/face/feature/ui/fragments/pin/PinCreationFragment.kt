@@ -61,6 +61,8 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         // Set up UI interactions and listeners
         setupUI()
         observeViewModel()
+        binding.txtBillNumValue.text=viewModel.billNum
+        binding.txtAmountValue.text=viewModel.amount
     }
 
 
@@ -153,8 +155,9 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
 
                         is BasicState.Error -> {
                             showLoading(false)
+
                             findNavController().navigateUp()
-                            Toast.makeText(context, paymentState.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, paymentState.message, Toast.LENGTH_LONG).show()
                         }
 
                         BasicState.Idle -> {
@@ -166,7 +169,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         }
     }
 
-            private fun showLoading(isLoading: Boolean) {
+    private fun showLoading(isLoading: Boolean) {
                 binding.llProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
                 //  binding.loginBtn.isEnabled = !isLoading
             }
@@ -178,6 +181,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         Toast.makeText(context, "Success! Payment is processed successfully", Toast.LENGTH_SHORT)
             .show()
         viewModel.clearTransaction()
+
         findNavController().navigateUp()
     }
 
