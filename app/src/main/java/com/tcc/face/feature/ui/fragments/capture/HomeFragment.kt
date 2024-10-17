@@ -20,17 +20,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
 
 import com.tcc.face.R
-import com.tcc.face.base.socket.PostmanWebSocketListener
-import com.tcc.face.base.websocket.WebSocketCallback
-import com.tcc.face.base.websocket.WebSocketManager
-import com.tcc.face.base.websocket.WebSocketMessage
+
+import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
+import com.tcc.face.domain.models.BasicState
 
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
@@ -42,7 +42,10 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
+open class HomeFragment : Fragment(R.layout.fragment_home) {
+
+    private val handler = Handler(Looper.getMainLooper())
+    private var runnable: Runnable? = null
 
     // ViewBinding instance
     private var _binding: FragmentHomeBinding? = null
@@ -50,7 +53,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
 
     private val viewModel: DetectionViewModel by activityViewModels()
 
-    private lateinit var webSocketManager: WebSocketManager
     private val PERMISSIONS_REQUEST_CODE = 101
     var faceCaptured=false
     private val requiredPermissions = arrayOf(
@@ -98,17 +100,30 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
         // Initialize ViewBinding
         _binding = FragmentHomeBinding.bind(view)
         checkAndRequestPermissions()
-        // Initialize WebSocket
-        webSocketManager = WebSocketManager(this)
-        webSocketManager.startWebSocket()
 
         // Set up UI interactions and listeners
         setupUI()
         observeViewModel()
-      //  connectToPostmanEchoWebSocket()
 
+        startRecurringTask()
 
     }
+
+    private fun startRecurringTask() {
+        runnable = object : Runnable {
+            override fun run() {
+                // Schedule the task to run again after 10 seconds
+                handler.postDelayed(this, 10000)
+                // Check if the state is not Idle before calling getPayable
+                if (viewModel.isPayableIdle()) {
+                    viewModel.getPayable()
+                }
+            }
+        }
+        // Start the task for the first time
+        handler.post(runnable!!)
+    }
+
     private fun checkAndRequestPermissions() {
         requestPermissionsIfNecessary()
     }
@@ -203,37 +218,29 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
 
             }
         }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.payableState.collect { payableState ->
+                when (payableState) {
+                    is BasicState.Loading -> {
+                    }
+                    is BasicState.Success -> {
+                        viewModel.newPayable?.let { onMessageReceived(it) }
+                    }
+
+                    is BasicState.Error -> {
+                        Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
+                    }
+
+                    BasicState.Idle -> {
+                    }
+                }
+            }
+
+
+
+
     }
-    override fun onMessageReceived(message: WebSocketMessage) {
-        Log.e("WS:", "Message Received")
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(context, "WS Message Received", Toast.LENGTH_LONG).show()
-        }
-        binding.waitingLayout.visibility=View.GONE
-        binding.transactionLayout.visibility=View.VISIBLE
-        viewModel.billNum = message.billNumber
-        viewModel.amount = message.amount.toString()
-        viewModel.accountId = message.accountId
-
-
-
-    }
-    override fun onConnectionSuccess() {
-        Log.e("WS:", "Connection Success")
-
-    }
-    override fun onConnectionFailure(error: String?) {
-        Log.e("WS:", "Connection Fail")
-        // Notify the user about the failure
-
-        // Retry the connection after 5 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            webSocketManager.startWebSocket()
-        }, 5000) // 5000 milliseconds = 5 seconds
-    }
-
-    override fun onConnectionClosed() {
-        Log.e("WS:", "Connection Closed")
 
     }
 
@@ -271,6 +278,19 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT)
     }
 
+    private fun onMessageReceived(message: Trigger) {
+        Log.e("WS:", "Message Received")
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(context, "WS Message Received", Toast.LENGTH_LONG).show()
+        }
+        binding.waitingLayout.visibility=View.GONE
+        binding.transactionLayout.visibility=View.VISIBLE
+        viewModel.billNum = message.billNumber
+        viewModel.amount = message.amount.toString()
+        viewModel.accountId = message.account_ID
+
+    }
+
     private fun setupUI() {
 
         binding.faceCapturingBtn.setOnClickListener {
@@ -303,6 +323,8 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null  // Avoid memory leaks by nullifying the binding reference
+
+        runnable?.let { handler.removeCallbacks(it) }
     }
 
     fun getBase64FromDrawable(): String? {

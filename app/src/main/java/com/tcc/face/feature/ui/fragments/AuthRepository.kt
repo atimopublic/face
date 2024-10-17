@@ -1,6 +1,7 @@
 package com.tcc.face.feature.ui.fragments
 
 import com.google.gson.Gson
+import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.remote.api.ApiService
 import com.tcc.face.domain.models.BasicResponse
 import com.tcc.face.domain.models.CardRequest
@@ -116,6 +117,23 @@ class AuthRepository @Inject constructor(
             } else {
                 Result.failure(Exception("$errorCode Failed to process payment $errorMessage"))
             }*/
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+
+    suspend fun getPayable(id: String): Result<BasicResponse<Trigger>?> =
+        try {
+            val response = apiService.getPayable(id)
+
+            if (response.isSuccessful) {
+                Result.success(response.body())
+            } else {
+
+                val gson = Gson()
+                val error: Error = gson.fromJson(response?.errorBody()?.string(), Error::class.java)
+                Result.failure(Exception("${error.errorCode} (Failed to Payable) ${error.errorMessage}"))
+            }
+
         } catch (e: Exception) {
             Result.failure(e)
         }

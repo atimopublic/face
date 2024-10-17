@@ -25,17 +25,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_500sdp"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/waiting_layout"
-            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-           >
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/textView2"
@@ -68,10 +71,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/transaction_layout"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_500sdp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/textView5"
