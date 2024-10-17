@@ -122,9 +122,9 @@ open class CaptureFaceFragment : Fragment(R.layout.fragment_face_capture) {
                     if (isValidInput(pinCode)) {
                         viewModel.payment(
                             PaymentAuthenticationRequest(
-                                account_ID = Constants.ACCOUNT_ID,
-                                billNumber = "1234",
-                                amount = "22.0",
+                                account_ID = viewModel.accountId!!,
+                                billNumber = viewModel.billNum!!,
+                                amount = viewModel.amount!!,
                                 pin = pinCode,
                                 biometric = BiometricData(
                                     biometricData = base64

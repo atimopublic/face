@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.messaging.FirebaseMessaging
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
 
@@ -288,6 +287,9 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.billNum = message.billNumber
         viewModel.amount = message.amount.toString()
         viewModel.accountId = message.account_ID
+
+        binding.txtAmountValue.text = viewModel.amount
+        binding.txtBillNumValue.text = viewModel.billNum
 
     }
 
