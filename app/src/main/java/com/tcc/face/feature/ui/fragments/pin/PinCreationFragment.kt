@@ -153,6 +153,7 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
 
                         is BasicState.Error -> {
                             showLoading(false)
+                            findNavController().navigateUp()
                             Toast.makeText(context, paymentState.message, Toast.LENGTH_SHORT).show()
                         }
 
