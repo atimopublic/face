@@ -14,12 +14,12 @@ interface WebSocketCallback {
     fun onConnectionClosed()
 }
 
-class WebSocketListener (
+open class WebSocketListener (
     private val callback: WebSocketCallback
 ) : WebSocketListener() {
 
     private val gson = Gson()
-    
+
     override fun onOpen(webSocket: WebSocket, response: Response) {
         super.onOpen(webSocket, response)
         // WebSocket connection established

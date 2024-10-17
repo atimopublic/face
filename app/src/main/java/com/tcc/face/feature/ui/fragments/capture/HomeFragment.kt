@@ -21,16 +21,19 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
 
 import com.tcc.face.R
+import com.tcc.face.base.socket.PostmanWebSocketListener
 import com.tcc.face.base.websocket.WebSocketCallback
 import com.tcc.face.base.websocket.WebSocketManager
 import com.tcc.face.base.websocket.WebSocketMessage
 import com.tcc.face.databinding.FragmentHomeBinding
 
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -102,6 +105,9 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
         // Set up UI interactions and listeners
         setupUI()
         observeViewModel()
+      //  connectToPostmanEchoWebSocket()
+
+
     }
     private fun checkAndRequestPermissions() {
         requestPermissionsIfNecessary()
@@ -161,7 +167,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
             val faceOutput: FaceOutput = identyResponse!!.prints
             val score = faceOutput!!.score
             if (faceOutput != null) {
-                //  showProgress()
+                  showLoading(false)
                 faceCaptured=true
 
 
@@ -185,7 +191,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
                         //
                     } catch (e: Exception) {
                         Log.e(TAG, "faceResponse: ", e);
-                        // hideProgress();
+                        showLoading(false)
                         Toast.makeText(
                             requireActivity(),
                             e.getLocalizedMessage(),
@@ -214,16 +220,12 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
     }
     override fun onConnectionSuccess() {
         Log.e("WS:", "Connection Success")
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(activity, "WS Connection Success", Toast.LENGTH_LONG).show()
-        }
+
     }
     override fun onConnectionFailure(error: String?) {
         Log.e("WS:", "Connection Fail")
         // Notify the user about the failure
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(activity, "WS Connection Fail: $error", Toast.LENGTH_LONG).show()
-        }
+
         // Retry the connection after 5 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             webSocketManager.startWebSocket()
@@ -232,9 +234,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
 
     override fun onConnectionClosed() {
         Log.e("WS:", "Connection Closed")
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(activity, "WS Connection Closed", Toast.LENGTH_LONG).show()
-        }
+
     }
 
     private fun requestCameraPermission() {
@@ -277,6 +277,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
 
             //findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCaptureFaceFragment())
            // requestCameraPermission()
+            showLoading(true)
             viewModel.initFaceSdk(requireActivity())
 
         }
@@ -291,7 +292,10 @@ open class HomeFragment : Fragment(R.layout.fragment_home), WebSocketCallback {
 
 
     }
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.llProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
+        //  binding.loginBtn.isEnabled = !isLoading
+    }
     private fun isValidInput(username: String, password: String): Boolean {
         return username.isNotEmpty() && password.isNotEmpty()
     }

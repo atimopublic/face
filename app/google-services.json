@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922251624455",
+    "project_id": "pocbiometric",
+    "storage_bucket": "pocbiometric.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922251624455:android:26fa690261a4e9ba24eaa2",
+        "android_client_info": {
+          "package_name": "com.tcc.face"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV4pCAQwjcOTwZcgS1iSgRHU7sGvnWcFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

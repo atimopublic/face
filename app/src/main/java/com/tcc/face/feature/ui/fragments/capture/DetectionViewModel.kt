@@ -30,9 +30,9 @@ class DetectionViewModel @Inject constructor(
 ) : ViewModel() {
 
      var faceBit :Bitmap?=null
-     var amount :String?=""
-     var billNum: String?=""
-     var accountId: String?=""
+     var amount :String?="12"
+     var billNum: String?="12345"
+     var accountId: String?="2F34A6A1-59F7-4FB7-4802-08DCEDF0023A"
      var face64:String?=""
 
     private val faceResponse = MutableLiveData<IdentyResponse?>()

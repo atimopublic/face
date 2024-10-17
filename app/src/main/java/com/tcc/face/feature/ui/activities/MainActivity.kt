@@ -2,8 +2,12 @@ package com.tcc.face.feature.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import com.tcc.face.R
+import com.tcc.face.base.websocket.WebSocketCallback
+import com.tcc.face.base.websocket.WebSocketManager
+import com.tcc.face.base.websocket.WebSocketMessage
 
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -11,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     //val signupViewModel: SignUpViewModel by viewModels()
+    private lateinit var webSocketManager: WebSocketManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,5 +33,7 @@ class MainActivity : AppCompatActivity() {
       //  NavigationUI.setupActionBarWithNavController(this, navController)
       //  appBarConfiguration = AppBarConfiguration(navController.graph)
     }
+
+
 
 }
