@@ -26,6 +26,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         android:layout_marginTop="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/_30sdp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent">
 

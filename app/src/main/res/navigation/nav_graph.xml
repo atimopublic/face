@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_newTransactionFragment_to_captureFaceFragment"
             app:destination="@id/captureFaceFragment" />
+        <action
+            android:id="@+id/action_newTransactionFragment_to_pinCreationFragment"
+            app:destination="@id/pinCreationFragment" />
     </fragment>
 
 </navigation>

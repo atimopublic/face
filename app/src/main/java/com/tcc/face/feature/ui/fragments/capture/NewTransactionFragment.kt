@@ -86,7 +86,7 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
                 )
             )
 
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCaptureFaceFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPinCreationFragment())
 
         }
     }
@@ -202,7 +202,7 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
                                     BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
                                 viewModel.faceBit = pngBitmap
 
-                                findNavController().navigate(NewTransactionFragmentDirections.actionNewTransactionFragmentToCaptureFaceFragment())
+                                findNavController().navigate(NewTransactionFragmentDirections.actionNewTransactionFragmentToPinCreationFragment())
 
                                 //Face  SDK initialization
                                 //

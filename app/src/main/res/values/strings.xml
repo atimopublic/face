@@ -99,7 +99,7 @@
     <string name="create_pin_code">Create Pin Code</string>
     <string name="create_pin_details">Create your unique 4 digit pin, setting\n a pin is optional and can be used to\n lock</string>
     <string name="pin_error_wrong_pin_tmpl">Wrong PIN. Attempts remained: %d</string>
-    <string name="face_paying">Face Pay</string>
+    <string name="face_paying">FACE PAY</string>
     <string name="waiting_for_new_transaction">Waiting new transaction....</string>
     <string name="bill_num">Bill Num:</string>
     <string name="amount">Amount :</string>
