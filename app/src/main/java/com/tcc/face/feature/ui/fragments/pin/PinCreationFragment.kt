@@ -193,10 +193,9 @@ open class PinCreationFragment : Fragment(R.layout.fragment_pin_creation) {
         Toast.makeText(context, "Success! Payment is processed successfully", Toast.LENGTH_SHORT)
             .show()
         viewModel.clearTransaction()
-        viewModel.setFirstTime(true)
 
 
-        findNavController().navigateUp()
+        findNavController().navigate(PinCreationFragmentDirections.actionPinCreationFragmentToHomeFragment())
     }
 
 

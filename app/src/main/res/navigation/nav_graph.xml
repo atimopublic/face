@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_pinCreationFragment"
             app:destination="@id/pinCreationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newTransactionFragment"
+            app:destination="@id/newTransactionFragment" />
     </fragment>
 
     <fragment
@@ -31,6 +34,20 @@
     <fragment
         android:id="@+id/pinCreationFragment"
         android:name="com.tcc.face.feature.ui.fragments.pin.PinCreationFragment"
-        android:label="PinCreationFragment" />
+        android:label="PinCreationFragment" >
+        <action
+            android:id="@+id/action_pinCreationFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTransactionFragment"
+        android:name="com.tcc.face.feature.ui.fragments.capture.NewTransactionFragment"
+        android:label="NewTransactionFragment" >
+        <action
+            android:id="@+id/action_newTransactionFragment_to_captureFaceFragment"
+            app:destination="@id/captureFaceFragment" />
+    </fragment>
 
 </navigation>

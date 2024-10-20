@@ -29,6 +29,7 @@ import com.identy.face.enums.FaceTemplate
 import com.tcc.face.R
 import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
+import com.tcc.face.databinding.FragmentNewTransactionBinding
 import com.tcc.face.domain.models.BasicState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,13 +41,13 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-open class HomeFragment : Fragment(R.layout.fragment_home) {
+open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) {
 
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
 
     // ViewBinding instance
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentNewTransactionBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: DetectionViewModel by activityViewModels()
@@ -96,7 +97,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize ViewBinding
-        _binding = FragmentHomeBinding.bind(view)
+        _binding = FragmentNewTransactionBinding.bind(view)
         checkAndRequestPermissions()
 
         // Set up UI interactions and listeners
@@ -175,39 +176,64 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     fun observeViewModel()
     {
 
-
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.payableState.collect { payableState ->
-                    when (payableState) {
-                        is BasicState.Loading -> {
-                            Log.e("loading","iii")
+                viewModel.faceResponse.collect { identyResponse ->
+                    // Trigger navigation
+                    val faceOutput: FaceOutput = identyResponse!!.prints
+                    val score = faceOutput!!.score
+                    if (faceOutput != null) {
+                        showLoading(false)
+                        faceCaptured = true
 
+
+                        if (faceOutput.spoofScore > 0.7f) {
+                            try {
+                                val pngPhoto = faceOutput.templates[FaceTemplate.PNG]
+
+                                viewModel.face64 = pngPhoto!!
+
+
+                                // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
+                                val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
+                                //    printSizeInKb(dataBase64)
+
+                                val pngBitmap =
+                                    BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
+                                viewModel.faceBit = pngBitmap
+
+                                findNavController().navigate(NewTransactionFragmentDirections.actionNewTransactionFragmentToCaptureFaceFragment())
+
+                                //Face  SDK initialization
+                                //
+                            } catch (e: Exception) {
+                                Log.e(TAG, "faceResponse: ", e);
+                                showLoading(false)
+                                Toast.makeText(
+                                    requireActivity(),
+                                    e.getLocalizedMessage(),
+                                    Toast.LENGTH_SHORT
+                                ).show();
+                            }
                         }
 
-                        is BasicState.Success -> {
-                            viewModel.newPayable?.let { onMessageReceived(it) }
-                        }
 
-                        is BasicState.Error -> {
-                            Log.e("error",payableState.message)
-                           // Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
-                        }
-
-                        BasicState.Idle -> {
-                            Log.e("idle","iii")
-
-                        }
                     }
                 }
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModel.errorResponse.collect { s ->
+                    showLoading(false)
+                    Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
 
-
-
-    }
 
     }
 
@@ -245,23 +271,28 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT)
     }
 
-    private fun onMessageReceived(message: Trigger) {
 
-        binding.waitingLayout.visibility=View.GONE
-      //  binding.transactionLayout.visibility=View.VISIBLE
-        viewModel.billNum = message.billNumber
-        viewModel.amount = message.amount.toString()
-        viewModel.accountId = message.account_ID
-
-      //  binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
-      //  binding.txtBillNumValue.text = viewModel.billNum
-
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewTransactionFragment())
-    }
 
     private fun setupUI() {
 
 
+        binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
+        binding.txtBillNumValue.text = viewModel.billNum
+        binding.faceCapturingBtn.setOnClickListener {
+
+            //findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCaptureFaceFragment())
+           // requestCameraPermission()
+            showLoading(true)
+            viewModel.initFaceSdk(requireActivity())
+
+        }
+
+        binding.btnCancelTransaction.setOnClickListener{
+
+           findNavController().navigateUp()
+            viewModel.clearTransaction()
+
+        }
 
 
 
