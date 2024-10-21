@@ -173,4 +173,7 @@ dependencies {
     //Websockets
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
 
+    //SignalR
+    implementation 'com.microsoft.signalr:signalr:6.0.0'
+
 }

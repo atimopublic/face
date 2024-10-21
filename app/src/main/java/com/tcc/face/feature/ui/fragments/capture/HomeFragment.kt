@@ -24,14 +24,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.identy.face.FaceOutput
-import com.identy.face.enums.FaceTemplate
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+import com.microsoft.signalr.HubConnection
+import com.microsoft.signalr.HubConnectionBuilder
 import com.tcc.face.R
 import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
 import com.tcc.face.domain.models.BasicState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -49,48 +54,19 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var hubConnection: HubConnection
+    val gson = Gson()
+
     private val viewModel: DetectionViewModel by activityViewModels()
 
     private val PERMISSIONS_REQUEST_CODE = 101
-    var faceCaptured=false
+    var faceCaptured = false
     private val requiredPermissions = arrayOf(
         Manifest.permission.INTERNET,
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
-    // Permission request
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            openCamera()
-        } else {
-            // Handle permission denial
-        }
-    }
-
-    private val capturePhotoLauncher = registerForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { success: Boolean ->
-        if (success) {
-            // Photo was taken successfully, now convert to Base64
-            val base64Image = convertImageToBase64(viewModel.photoUri)
-
-            viewModel.setAuthenticationData(
-                DetectionViewModel.AuthenticationData(
-                    "123",
-                    base64Image
-                )
-            )
-
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCaptureFaceFragment())
-
-        }
-    }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -99,12 +75,14 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = FragmentHomeBinding.bind(view)
         checkAndRequestPermissions()
 
+        initSignalR()
+        startSignalRConnection()
+
         // Set up UI interactions and listeners
-        setupUI()
-        observeViewModel()
+//        setupUI()
+//        observeViewModel()
 
         startRecurringTask()
-
     }
 
     private fun startRecurringTask() {
@@ -125,6 +103,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun checkAndRequestPermissions() {
         requestPermissionsIfNecessary()
     }
+
     private fun hasAllPermissions(): Boolean {
         for (permission in requiredPermissions) {
             if (ContextCompat.checkSelfPermission(
@@ -137,6 +116,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         return true
     }
+
     private fun requestPermissionsIfNecessary() {
         if (!hasAllPermissions()) {
             // Explain why permissions are needed, especially for sensitive permissions
@@ -172,18 +152,13 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    fun observeViewModel()
-    {
-
-
-
-
+    fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.payableState.collect { payableState ->
                     when (payableState) {
                         is BasicState.Loading -> {
-                            Log.e("loading","iii")
+                            Log.e("loading", "iii")
 
                         }
 
@@ -192,24 +167,52 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
 
                         is BasicState.Error -> {
-                            Log.e("error",payableState.message)
-                           // Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
+                            Log.e("error", payableState.message)
+                            // Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
                         }
 
                         BasicState.Idle -> {
-                            Log.e("idle","iii")
+                            Log.e("idle", "iii")
 
                         }
                     }
                 }
             }
 
-
-
-
-    }
+        }
 
     }
+    // Permission request
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            openCamera()
+        } else {
+            // Handle permission denial
+        }
+    }
+
+    private val capturePhotoLauncher = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { success: Boolean ->
+        if (success) {
+            // Photo was taken successfully, now convert to Base64
+            val base64Image = convertImageToBase64(viewModel.photoUri)
+
+            viewModel.setAuthenticationData(
+                DetectionViewModel.AuthenticationData(
+                    "123",
+                    base64Image
+                )
+            )
+
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCaptureFaceFragment())
+
+        }
+    }
+
 
     private fun requestCameraPermission() {
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
@@ -247,14 +250,14 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun onMessageReceived(message: Trigger) {
 
-        binding.waitingLayout.visibility=View.GONE
-      //  binding.transactionLayout.visibility=View.VISIBLE
+        binding.waitingLayout.visibility = View.GONE
+        //  binding.transactionLayout.visibility=View.VISIBLE
         viewModel.billNum = message.billNumber
         viewModel.amount = message.amount.toString()
         viewModel.accountId = message.account_ID
 
-      //  binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
-      //  binding.txtBillNumValue.text = viewModel.billNum
+        //  binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
+        //  binding.txtBillNumValue.text = viewModel.billNum
 
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewTransactionFragment())
     }
@@ -262,14 +265,13 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setupUI() {
 
 
-
-
-
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.llProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
         //  binding.loginBtn.isEnabled = !isLoading
     }
+
     private fun isValidInput(username: String, password: String): Boolean {
         return username.isNotEmpty() && password.isNotEmpty()
     }
@@ -279,26 +281,55 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null  // Avoid memory leaks by nullifying the binding reference
 
         runnable?.let { handler.removeCallbacks(it) }
-    }
 
-    fun getBase64FromDrawable(): String? {
-        // Replace 'image' with the name of your drawable without the file extension
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.image)
-
-        return bitmap?.let {
-            // Convert Bitmap to Base64
-            convertBitmapToBase64(it)
+        // Stop SignalR connection when the fragment is destroyed
+        CoroutineScope(Dispatchers.IO).launch {
+            hubConnection.stop().blockingAwait()
         }
     }
 
-    private fun convertBitmapToBase64(bitmap: Bitmap): String {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        // Compress the bitmap into a byte array (JPEG format)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
+    private fun initSignalR() {
+        hubConnection = HubConnectionBuilder
+            .create("http://172.20.10.2:5000/messageHub")
+            .build()
 
-        // Convert byte array to Base64 string
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+        // Listening for messages from SignalR
+        hubConnection.on("ReceiveMessage", { message: String ->
+            // Handle received message (make sure to update UI on the main thread)
+            requireActivity().runOnUiThread {
+                Toast.makeText(requireContext(), "Message received: $message", Toast.LENGTH_SHORT)
+                    .show()
+                // Update your UI elements or pass this message to the ViewModel
+            }
+
+          try {
+                // Deserialize JSON message to Trigger object
+                val trigger = gson.fromJson(message, Trigger::class.java)
+                println("Received Trigger object: $trigger")
+            } catch (e: JsonSyntaxException) {
+                println("Error parsing JSON: ${e.message}")
+            }
+        }, String::class.java)
+    }
+
+    private fun startSignalRConnection() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                hubConnection.start().blockingAwait()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Connected to SignalR", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to connect to SignalR",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
 }
