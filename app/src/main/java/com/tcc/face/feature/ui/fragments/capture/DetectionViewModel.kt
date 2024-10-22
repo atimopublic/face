@@ -3,10 +3,7 @@ package com.tcc.face.feature.ui.fragments.capture
 import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
-import android.net.http.HttpException
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.identy.face.AS
@@ -14,8 +11,9 @@ import com.identy.face.IdentyResponse
 import com.identy.face.InitializationListener
 import com.identy.face.enums.FaceTemplate
 import com.identy.face.enums.UIOption
+import com.microsoft.signalr.HubConnection
+import com.microsoft.signalr.HubConnectionBuilder
 import com.tcc.face.base.Constants
-import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.domain.models.BasicState
 import com.tcc.face.domain.models.PaymentAuthenticationRequest
 import com.tcc.face.feature.ui.fragments.AuthRepository
@@ -42,6 +40,7 @@ class DetectionViewModel @Inject constructor(
     var accountId: String? = ""
     var face64: String? = ""
 
+    var hubConnection: HubConnection? = null
 
     private val _faceResponse = MutableSharedFlow<IdentyResponse>()
     val faceResponse: SharedFlow<IdentyResponse> = _faceResponse
@@ -54,10 +53,6 @@ class DetectionViewModel @Inject constructor(
     lateinit var photoUri: Uri
     private val _paymentState = MutableStateFlow<BasicState>(BasicState.Idle)
     var paymentState: StateFlow<BasicState> = _paymentState
-
-    private val _payableState = MutableStateFlow<BasicState>(BasicState.Idle)
-    var payableState: StateFlow<BasicState> = _payableState
-    var newPayable: Trigger? = null
 
     // Functions to update step data
     fun setAuthenticationData(data: AuthenticationData) {
@@ -84,17 +79,9 @@ class DetectionViewModel @Inject constructor(
     fun resetViewModel() {
         viewModelScope.launch {
             _authenticationData.emit(null)
-
             _paymentState.emit(BasicState.Idle)
-            _payableState.emit(BasicState.Idle)
         }
 
-    }
-
-    fun updatePayableState(newState: BasicState) {
-        viewModelScope.launch {
-            _payableState.emit(newState) // Emit new state
-        }
     }
 
     data class AuthenticationData(
@@ -133,38 +120,6 @@ class DetectionViewModel @Inject constructor(
             }
         }
     }
-
-    fun getPayable() {
-        viewModelScope.launch {
-            // _payableState.value = BasicState.Loading
-            try {
-                val result = authRepo.getPayable(Constants.DEVICE_ID)
-                if (result.isSuccess && result.getOrNull()?.success == true) {
-                    Log.e("succ", "error" + result.getOrNull()?.data)
-
-                    val billNum = result.getOrNull()?.data?.billNumber
-                    if (billNum != null && billNum != newPayable?.billNumber) {
-                        newPayable = result.getOrNull()?.data
-                        _payableState.value = BasicState.Success
-                    }
-
-                } else {
-                    Log.e("failed", "error" + result.getOrNull()?.data)
-
-                    _payableState.value =
-                        BasicState.Error("Failed: ${result.exceptionOrNull()?.message}")
-                }
-            } catch (e: Exception) {
-                Log.e("exception", e.message.toString())
-
-                _payableState.value = BasicState.Error("Error: ${e.message}")
-            }
-        }
-    }
-
-    fun isPayableIdle(): Boolean =
-        payableState.value == BasicState.Idle || payableState.value is BasicState.Error
-
 
     fun initFaceSdk(context: Activity) {
 
@@ -259,4 +214,27 @@ class DetectionViewModel @Inject constructor(
 
     }
 
+    //SignalR
+    fun startConnection() {
+        if (hubConnection == null) {
+            hubConnection = HubConnectionBuilder
+                .create(Constants.SIGNAL_R_HOST)
+                .build()
+
+            try {
+                hubConnection?.start()?.blockingAwait()
+            } catch (e: Exception) {
+                Log.e("SignalR: ", "Failed to build signalR connection")
+            }
+        }
+    }
+
+    fun stopConnection() {
+        hubConnection?.stop()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopConnection()
+    }
 }

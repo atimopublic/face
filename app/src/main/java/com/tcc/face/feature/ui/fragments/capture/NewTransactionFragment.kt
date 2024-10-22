@@ -27,10 +27,7 @@ import androidx.navigation.fragment.findNavController
 import com.identy.face.FaceOutput
 import com.identy.face.enums.FaceTemplate
 import com.tcc.face.R
-import com.tcc.face.base.websocket.Trigger
-import com.tcc.face.databinding.FragmentHomeBinding
 import com.tcc.face.databinding.FragmentNewTransactionBinding
-import com.tcc.face.domain.models.BasicState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -104,23 +101,6 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
         setupUI()
         observeViewModel()
 
-        startRecurringTask()
-
-    }
-
-    private fun startRecurringTask() {
-        runnable = object : Runnable {
-            override fun run() {
-                // Schedule the task to run again after 10 seconds
-                handler.postDelayed(this, 5000)
-                // Check if the state is not Idle before calling getPayable
-                if (viewModel.isPayableIdle()) {
-                    viewModel.getPayable()
-                }
-            }
-        }
-        // Start the task for the first time
-        handler.post(runnable!!)
     }
 
     private fun checkAndRequestPermissions() {
@@ -156,10 +136,7 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
                     }
                     .setNegativeButton(
                         "Cancel"
-                    ) { dialog, which ->
-                        // Handle case where user denies permission and doesn't want explanation again
-                        //                        Toast.makeText(requireContext(), "App functionality may be limited without permissions.", Toast.LENGTH_SHORT).show();
-                    }
+                    ) { dialog, which -> }
                     .create()
                     .show()
             } else {
@@ -178,14 +155,13 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.faceResponse.collect { identyResponse ->
+                viewModel.faceResponse.collect { identifyResponse ->
                     // Trigger navigation
-                    val faceOutput: FaceOutput = identyResponse!!.prints
+                    val faceOutput: FaceOutput = identifyResponse.prints
                     val score = faceOutput!!.score
                     if (faceOutput != null) {
                         showLoading(false)
                         faceCaptured = true
-
 
                         if (faceOutput.spoofScore > 0.7f) {
                             try {
@@ -193,10 +169,7 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
 
                                 viewModel.face64 = pngPhoto!!
 
-
-                                // PreferenceUtil.getInstance(this).saveString(PreferenceUtil.KEY_FACE_BASE64, pngPhoto);
                                 val dataBase64 = Base64.decode(pngPhoto, Base64.DEFAULT)
-                                //    printSizeInKb(dataBase64)
 
                                 val pngBitmap =
                                     BitmapFactory.decodeByteArray(dataBase64, 0, dataBase64.size)
@@ -204,16 +177,14 @@ open class NewTransactionFragment : Fragment(R.layout.fragment_new_transaction) 
 
                                 findNavController().navigate(NewTransactionFragmentDirections.actionNewTransactionFragmentToPinCreationFragment())
 
-                                //Face  SDK initialization
-                                //
                             } catch (e: Exception) {
-                                Log.e(TAG, "faceResponse: ", e);
+                                Log.e(TAG, "faceResponse: ", e)
                                 showLoading(false)
                                 Toast.makeText(
                                     requireActivity(),
                                     e.getLocalizedMessage(),
                                     Toast.LENGTH_SHORT
-                                ).show();
+                                ).show()
                             }
                         }
 

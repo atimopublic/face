@@ -2,7 +2,6 @@ package com.tcc.face.feature.ui.fragments.capture
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,7 +11,6 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,23 +18,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
-import com.microsoft.signalr.HubConnection
-import com.microsoft.signalr.HubConnectionBuilder
 import com.tcc.face.R
 import com.tcc.face.base.websocket.Trigger
 import com.tcc.face.databinding.FragmentHomeBinding
-import com.tcc.face.domain.models.BasicState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -54,7 +41,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var hubConnection: HubConnection
     val gson = Gson()
 
     private val viewModel: DetectionViewModel by activityViewModels()
@@ -75,29 +61,12 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = FragmentHomeBinding.bind(view)
         checkAndRequestPermissions()
 
-        initSignalR()
-        startSignalRConnection()
+        observeViewModel()
 
-        // Set up UI interactions and listeners
-//        setupUI()
-//        observeViewModel()
-
-        startRecurringTask()
-    }
-
-    private fun startRecurringTask() {
-        runnable = object : Runnable {
-            override fun run() {
-                // Schedule the task to run again after 10 seconds
-                handler.postDelayed(this, 5000)
-                // Check if the state is not Idle before calling getPayable
-                if (viewModel.isPayableIdle()) {
-                    viewModel.getPayable()
-                }
-            }
-        }
-        // Start the task for the first time
-        handler.post(runnable!!)
+        viewModel.hubConnection?.on("ReceiveMessage", { messageJson ->
+            val trigger = gson.fromJson(messageJson, Trigger::class.java)
+            onMessageReceived(trigger)
+        }, String::class.java)
     }
 
     private fun checkAndRequestPermissions() {
@@ -152,35 +121,8 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.payableState.collect { payableState ->
-                    when (payableState) {
-                        is BasicState.Loading -> {
-                            Log.e("loading", "iii")
-
-                        }
-
-                        is BasicState.Success -> {
-                            viewModel.newPayable?.let { onMessageReceived(it) }
-                        }
-
-                        is BasicState.Error -> {
-                            Log.e("error", payableState.message)
-                            // Toast.makeText(context, "No Payable Transaction", Toast.LENGTH_SHORT).show()
-                        }
-
-                        BasicState.Idle -> {
-                            Log.e("idle", "iii")
-
-                        }
-                    }
-                }
-            }
-
-        }
-
+    private fun observeViewModel() {
+        viewModel.startConnection()
     }
     // Permission request
 
@@ -250,20 +192,15 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun onMessageReceived(message: Trigger) {
 
-        binding.waitingLayout.visibility = View.GONE
-        //  binding.transactionLayout.visibility=View.VISIBLE
-        viewModel.billNum = message.billNumber
-        viewModel.amount = message.amount.toString()
-        viewModel.accountId = message.account_ID
+        requireActivity().runOnUiThread {
+            binding.waitingLayout.visibility = View.GONE
 
-        //  binding.txtAmountValue.text = String.format("%.2f", viewModel.amount!!.toDouble())
-        //  binding.txtBillNumValue.text = viewModel.billNum
+            viewModel.billNum = message.billNumber
+            viewModel.amount = message.amount.toString()
+            viewModel.accountId = message.account_ID
 
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewTransactionFragment())
-    }
-
-    private fun setupUI() {
-
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewTransactionFragment())
+        }
 
     }
 
@@ -282,54 +219,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
         runnable?.let { handler.removeCallbacks(it) }
 
-        // Stop SignalR connection when the fragment is destroyed
-        CoroutineScope(Dispatchers.IO).launch {
-            hubConnection.stop().blockingAwait()
-        }
-    }
-
-    private fun initSignalR() {
-        hubConnection = HubConnectionBuilder
-            .create("http://172.20.10.2:5000/messageHub")
-            .build()
-
-        // Listening for messages from SignalR
-        hubConnection.on("ReceiveMessage", { message: String ->
-            // Handle received message (make sure to update UI on the main thread)
-            requireActivity().runOnUiThread {
-                Toast.makeText(requireContext(), "Message received: $message", Toast.LENGTH_SHORT)
-                    .show()
-                // Update your UI elements or pass this message to the ViewModel
-            }
-
-          try {
-                // Deserialize JSON message to Trigger object
-                val trigger = gson.fromJson(message, Trigger::class.java)
-                println("Received Trigger object: $trigger")
-            } catch (e: JsonSyntaxException) {
-                println("Error parsing JSON: ${e.message}")
-            }
-        }, String::class.java)
-    }
-
-    private fun startSignalRConnection() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                hubConnection.start().blockingAwait()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Connected to SignalR", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to connect to SignalR",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
     }
 
 }
